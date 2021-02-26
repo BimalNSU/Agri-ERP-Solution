@@ -26,6 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+    // protected $redirectTo = '/home';
     protected $redirectTo;
 
     public function redirectTo()
@@ -35,12 +36,8 @@ class LoginController extends Controller
                 $this->redirectTo = '/admin';
                 return $this->redirectTo;
                 break;
-            case 'teacher':
-                $this->redirectTo = '/teacher';
-                return $this->redirectTo;
-                break;
-            case 'student':
-                $this->redirectTo = '/student';
+            case 'user':
+                $this->redirectTo = '/user';
                 return $this->redirectTo;
                 break;
             default:
@@ -49,7 +46,7 @@ class LoginController extends Controller
                 break;
         }            
     }
-
+    
     /**
      * Create a new controller instance.
      *
