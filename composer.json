@@ -17,7 +17,10 @@
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
+<<<<<<< HEAD
         "laravel/ui": "1.0",
+=======
+>>>>>>> 5ea729515e4e82473d52a24596803fcc4be2e0a5
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.5"

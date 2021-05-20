@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "897400c51cf42cf6e4d7863aa0e0cb7b",
+=======
+    "content-hash": "4731429c7f25ab92eaa813447a972209",
+>>>>>>> 5ea729515e4e82473d52a24596803fcc4be2e0a5
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4236,6 +4240,7 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/ui",
             "version": "v1.0.0",
             "source": {
@@ -4297,6 +4302,8 @@
             "time": "2019-08-13T20:10:17+00:00"
         },
         {
+=======
+>>>>>>> 5ea729515e4e82473d52a24596803fcc4be2e0a5
             "name": "mockery/mockery",
             "version": "1.3.4",
             "source": {
