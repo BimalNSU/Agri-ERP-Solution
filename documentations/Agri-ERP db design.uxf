@@ -1,0 +1,4137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1841</x>
+      <y>1015</y>
+      <w>252</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Collect_n_buy
+--
+collection_code: BIGINT unsigned AUTO_INCREMENT,
+product_id: MEDIUMINT unsigned NOT NULL (fk)
+buy_id: BIGINT unsigned NOT NULL (fk),
+entry_by: INT unsigned NOT NULL (fk),
+entry_on: DATETIME NOT NULL,
+status: tinyint(2) unsigned NOT NULL,
+PRIMARY KEY (collection_code),
+UNIQUE (collection_code,buy_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2275</x>
+      <y>2100</y>
+      <w>357</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Stocks
+--
+house_id: smallint unsigned NOT NULL (fk)
+product_id: MEDIUMINT unsigned NOT NULL (fk)
+collection_code: INT NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL(product_qt + extra_qt - shortage_qt - wastage_qt)
+UNIQUE (house_id,product_id,collection_code,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1967</x>
+      <y>1323</y>
+      <w>336</w>
+      <h>791</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0;460.0;390.0;460.0;1110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1659</x>
+      <y>2730</y>
+      <w>231</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Shopping_carts
+--
+customer_id: INT unsigned NOT NULL (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+qt: decimal(10,2) NOT NULL
+create_on: DATETIME NOT NULL
+UNIQUE (customer_id,product_code)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2009</x>
+      <y>2779</y>
+      <w>245</w>
+      <h>322</h>
+    </coordinates>
+    <panel_attributes>Order_items
+--
+order_track_id: BIGINT unsigned AUTO_INCREMENT
+order_id: BIGINT unsigned NOT NULL (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+unit_price: DECIMAL(10,2) NOT NULL
+status: tinyint(2) unsigned NOT NULL
+PRIMARY KEY (order_track_id)
+UNIQUE (order_id, product_code)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1883</x>
+      <y>2772</y>
+      <w>140</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+make order &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1946</x>
+      <y>2779</y>
+      <w>21</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;630.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2023</x>
+      <y>2387</y>
+      <w>231</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Reviews
+--
+order_id: BIGINT unsigned not null (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+review: varchar(50) NOT NULL
+rating: tinyint(5) unsigned NOT NULL
+created_on: DATETIME NOT NULL
+unique (order_id,product_code)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1680</x>
+      <y>2555</y>
+      <w>168</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>User
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2065</x>
+      <y>2247</y>
+      <w>245</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Products
+--
+product_id: SMALLINT unsigned AUTO_INCREMENT
+cat_id: tinyint unsigned NOT NULL (fk)
+name: varchar(50) NOT NULL
+description: varchar(100)
+product_image: varchar(100) NOT NULL
+short_video: varchar(100)
+default_unit: varchar(10) NOT NULL
+PRIMARY KEY (product_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2443</x>
+      <y>2492</y>
+      <w>91</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+price update  ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2408</x>
+      <y>2611</y>
+      <w>231</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Price_update
+--
+update_id: BIGINT unsigned AUTO_INCREMENT
+product_code: mediumint unsigned NOT NULL (fk)
+last_sales_price: DECIMAL(10,2) NOT NULL
+updated_by: INT unsigned NOT NULL (fk)
+updated_on: DATETIME NOT NULL
+PRIMARY KEY (update_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1183</x>
+      <y>602</y>
+      <w>224</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Buying_agreements
+--
+buy_id: BIGINT unsigned AUTO_INCREMENT
+production_id: BIGINT unsigned NOT NULL (fk)
+farmer_id: INT unsigned NOT NULL (fk)
+collection_point_id: INT unsigned NOT NULL (fk)
+due: Decimal(10,2) NOT NULL
+status: tinyint(2) NOT NULL
+agreement_date: DATE NOT NULL
+created_by: INT unsigned NOT NULL (fk)
+created_on: DATETIME NOT NULL
+PRIMARY KEY (buy_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1575</x>
+      <y>2142</y>
+      <w>203</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Categories
+--
+cat_id: tinyint unsigned AUTO_INCREMENT
+name: varchar(50) NOT NULL
+image_url: varchar(100) NOT NULL
+PRIMARY KEY (cat_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1589</x>
+      <y>2030</y>
+      <w>231</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Category_relation
+--
+parent_subcat_id: tinyint unsigned NOT NULL (fk)
+child_subcat_id: tinyint unsigned NOT NULL (fk)
+UNIQUE (parent_subcat_id, child_subcat_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1652</x>
+      <y>2107</y>
+      <w>140</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;160.0;10.0;160.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1708</x>
+      <y>2079</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1771</x>
+      <y>2177</y>
+      <w>343</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0;460.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2394</x>
+      <y>2905</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Packaging_ref
+--
+order_track_id: BIGINT unsigned NOT NULL (fk)
+house_id: smallint unsigned NOT NULL (fk)
+collection_code: INT NOT NULL (fk)
+qt_in_default_unit: decimal(10,2) NOT NULL
+UNIQUE (order_track_id,house_id,collection_code)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2611</x>
+      <y>2184</y>
+      <w>140</w>
+      <h>742</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;70.0;180.0;1000.0;20.0;1040.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1155</x>
+      <y>3416</y>
+      <w>259</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>Orders:
+status:
+   0. Pending,
+   1. Cancelled,
+   2. Processing,
+   3. Delivered,
+   4. Paritial_delivered
+   5. Fail
+
+NOTE:
+status = "pending" means when product is reached to 
+          warehouse,products will be packaged.
+status = "processing" means order has been packaged
+          and it is on the way from warehouse to customer.
+status = "Cancelled" if order is cancelled by customer
+
+But once the status = "Processing",means order has been
+              packaged so can't be able to cancel the order.
+.....................................
+if due = 0, 
+                payment_status = Paid
+if total_amount - due = 0, 
+                payment_status = Unpaid
+if total_amount - due &gt; 0, 
+                payment_status = Partailly paid
+
+      </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1505</x>
+      <y>3493</y>
+      <w>210</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Delivery_list
+--
+delivery_man_id: INT unsigned NOT NULL (fk)
+order_id: BIGINT unsigned NOT NULL (fk)
+assign_by: INT unsigned NOT NULL (fk)
+assign_on: DATETIME NOT NULL
+UNIQUE (delivery_man_id,order_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1666</x>
+      <y>7</y>
+      <w>175</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>Users
+--
+id: INT unsigned AUTO_INCREMENT
+user_type: varchar(30) NOT NULL
+password: varchar(30) NOT NULL
+first_name: varchar(30) NOT NULL
+last_name: varchar(30)
+email: varchar(50)
+region: varchar(30) NOT NULL
+city: varchar(30) NOT NULL
+area: varchar(30) NOT NULL
+address: varchar(100) NOT NULL
+mobile: varchar(11) NOT NULL
+photo_url: varchar(100)
+register_on: DATETIME NOT NULL,
+PRIMARY KEY (user_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1477</x>
+      <y>3094</y>
+      <w>245</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>OTP:
+means auth_code, will be auto generated
+and will sent to customer.
+using that code will be changed the status='Delivered'.
+After being delivered, may be possible to 
+return product with valid reason with fix
+time(may be 5 minutes)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1750</x>
+      <y>2597</y>
+      <w>70</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+add cart v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1869</x>
+      <y>2289</y>
+      <w>210</w>
+      <h>455</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;630.0;110.0;250.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3290</y>
+      <w>196</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Order_Cancels
+--
+order_id: BIGINT unsigned NOT NULL (fk) 
+cancellation_type: varchar(15) NOT NULL
+reason: varchar(50)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1659</x>
+      <y>3283</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+&lt; cancel order</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1456</x>
+      <y>3745</y>
+      <w>224</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes># Pickup_points #
+--
+address_id: INT NOT NULL AUTO_INCREMENT
+region: varchar(30) NOT NULL
+city: varchar(30) NOT NULL
+area: varchar(30) NOT NULL
+address: varchar(100) NOT NULL
+postal_code: varchar(10)
+PRIMARY KEY (address_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2135</x>
+      <y>3185</y>
+      <w>224</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Order_item_returns
+--
+order_track_id: BIGINT unsigned NOT NULL (fk)
+return_type: varchar(15) NOT NULL
+return_qt: Decimal(10,2) NOT NULL
+reason: varchar(50)
+status: bit(1) NOT NULL,
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_track_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2198</x>
+      <y>3094</y>
+      <w>84</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+return order v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1498</x>
+      <y>3584</y>
+      <w>175</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Order_address_ref
+--
+order_id: BIGINT NOT NULL (fk)
+address_type: varchar(20) NOT NULL
+region: varchar(30) NOT NULL
+city: varchar(30) NOT NULL
+area: varchar(30) NOT NULL
+address: varchar(100) NOT NULL
+UNIQUE (order_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1666</x>
+      <y>3591</y>
+      <w>21</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3696</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Order_address_ref:
+address_type: pickup_point,billing address</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2303</x>
+      <y>1099</y>
+      <w>378</w>
+      <h>1015</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>520.0;10.0;10.0;710.0;10.0;1430.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2520</x>
+      <y>1001</y>
+      <w>231</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Test_details
+--
+test_id: INT unsigned NOT NULL (fk)
+collection_code: INT unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+shortage_qt: INT NOT NULL
+wastage_qt: INT NOT NULL
+test_status: varchar(20) NOT NULL(missing,pass)
+UNIQUE (test_id,collection_code,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2380</x>
+      <y>1008</y>
+      <w>154</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+test on  collection code &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2058</x>
+      <y>1624</y>
+      <w>224</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Houses
+--
+house_id: smallint unsigned AUTO_INCREMENT
+name: varchar(30) NOT NULL
+house_type: varchar(30) NOT NULL
+area: varchar(30) NOT NULL
+address: varchar(50) NOT NULL
+mobile: varchar(11) NOT NULL
+created_by: INT NOT NULL (fk)
+create_on: DATETIME NOT NULL
+PRIMARY KEY (house_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3206</y>
+      <w>196</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Order_OTP
+--
+order_id: BIGINT unsigned NOT NULL (fk)
+otp_number: smallint unsigned NOT NULL
+generate_on: DATETIME NOT NULL
+is_otp_used: bit(1) NOT NULL
+UNIQUE (order_id, otp_number)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1659</x>
+      <y>3234</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1..n
+&lt; generate OTP</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>350</y>
+      <w>252</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Pre_grading
+--
+pre_grading_id: BIGINT unsigned AUTO_INCREMENT
+pre_harvest_id: BIGINT unsigned NOT NULL (fk)
+grader_id: INT unsigned NOT NULL (fk)
+size: varchar(10) NOT NULL
+grading_before_collection: INT unsigned NOT NULL
+expected_harvest_qt: Decimal(10,2) NOT NULL
+PRIMARY KEY(pre_grading_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2044</x>
+      <y>567</y>
+      <w>252</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Land_areas
+--
+land_id: INT unsigned AUTO_INCREMENT
+area: varchar(30) NOT NULL
+land_owner: varchar(30) NOT NULL
+location: varchar(100) NOT NULL
+cultivate_land_measurement: Decimal(10,2) NOT NULL
+farmer_id: int unsigned not null (fk)
+entry_by: int unsigned not null (fk)
+entry_on: datetime not null
+PRIMARY KEY (land_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1540</x>
+      <y>560</y>
+      <w>245</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>Productions
+--
+production_id: BIGINT unsigned AUTO_INCREMENT
+farmer_id: INT unsigned NOT NULL (fk)
+product_id: smallint unsigned NOT NULL (fk)
+cultivation_qt: Decimal(10,2) NOT NULL
+unit: varchar(10) NOT NULL
+cultivation_date: DATE NOT NULL
+probable_harvest_qt: Decimal(10,2) NOT NULL
+probable_harvest_date: DATE NOT NULL
+entry_on: DATETIME NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+is_fully_harvested: bit(1) NOT NULL
+PRIMARY KEY (production_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1673</x>
+      <y>238</y>
+      <w>203</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Fertilization
+--
+f_id: BIGINT unsigned AUTO_INCREMENT
+assign_land_id: INT unsigned NOT NULL (fk)
+fertilizer_qt: Decimal(10,2 NOT NULL
+fertilization_day: DATE NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (f_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1890</x>
+      <y>238</y>
+      <w>203</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Irrigation
+--
+r_id: BIGINT unsigned AUTO_INCREMENT
+assign_land_id: INT unsigned NOT NULL (fk)
+irrigation_day: DATE NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (r_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2345</x>
+      <y>231</y>
+      <w>210</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>Disease_and_treatment
+--
+DT_id: BIGINT unsigned AUTO_INCREMENT
+assign_land_id: INT unsigned NOT NULL (fk)
+treatment_type: varchar(30) NOT NULL
+disease_name: varchar(30) NOT NULL
+disease_day: DATE NOT NULL
+treatment_name: varchar(30) NOT NULL
+treatment_qt: Decimal(10,2) NOT NULL
+treatment_day: DATE NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (DT_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1281</x>
+      <y>483</y>
+      <w>245</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Pre_Harvests
+--
+pre_harvest_id: BIGINT unsigned AUTO_INCREMENT
+production_id: BIGINT unsigned NOT NULL (fk)
+expected_harvest_qt: Decimal(10,2) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (pre_harvest_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2352</x>
+      <y>168</y>
+      <w>182</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Disease_and_treatment:
+
+treatment_type: insecticide, pesticide</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1561</x>
+      <y>728</y>
+      <w>322</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Productions:
+
+unit: kg,piece
+is_fully_harvested: 0,1
+
+When is_fully harvested_fully = 1,
+then this production will be no longer visible by farmer and ks_agent</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1617</x>
+      <y>448</y>
+      <w>126</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+grading before harvest ^</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1519</x>
+      <y>483</y>
+      <w>119</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2051</x>
+      <y>686</y>
+      <w>84</w>
+      <h>343</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+collect &amp; buy v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2884</x>
+      <y>2079</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Waste_products_details
+--
+waste_product_id: INT NOT NULL (fk)
+collection_code: INT NOT NULL (fk)
+sub_id: tinyint NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+UNIQUE(waste_product_id,collection_code,sub_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2625</x>
+      <y>2163</y>
+      <w>287</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+check product quality &gt;</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2625</x>
+      <y>2093</y>
+      <w>273</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+wastage products &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;370.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2205</x>
+      <y>1743</y>
+      <w>35</w>
+      <h>518</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..n
+ ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;720.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2198</x>
+      <y>364</y>
+      <w>161</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+</panel_attributes>
+    <additional_attributes>10.0;80.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1778</x>
+      <y>560</y>
+      <w>280</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+
+assign lands &gt;</panel_attributes>
+    <additional_attributes>380.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1869</x>
+      <y>336</y>
+      <w>133</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1995</x>
+      <y>322</y>
+      <w>35</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>735</y>
+      <w>455</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+follow buy rule v</panel_attributes>
+    <additional_attributes>10.0;10.0;630.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2100</x>
+      <y>238</y>
+      <w>231</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Soil_test
+--
+soil_test_id: BIGINT unsigned AUTO_INCREMENT
+assign_land_id: INT unsigned NOT NULL (fk)
+test_day: DATE NOT NULL
+test_result: varchar(100) 
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (soil_test_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2128</x>
+      <y>336</y>
+      <w>35</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2814</x>
+      <y>2282</y>
+      <w>294</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Quality_downgrade_records
+--
+quality_downgrade_record_id: INT unsigned AUTO_INCREMENT
+house_id: smallint unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY(quality_downgrade_record_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1834</x>
+      <y>1225</y>
+      <w>224</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Collect_n_buy_ref
+--
+collection_code: BIGINT unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+extra_qt: Decimal(10,2) NOT NULL
+crates: TINYINT UNSIGNED NOT NULL
+carrying_unit_cost: Decimal(10,2) NOT NULL
+UNIQUE (collection_code,product_id,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1897</x>
+      <y>1127</y>
+      <w>35</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1267</x>
+      <y>854</y>
+      <w>210</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Buying_agreement_details
+--
+buy_id: BIGINT unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+buy_price: DECIMAL(10,2) NOT NULL
+carrying_unit_cost: Decimal(10,2) NOT NULL
+UNIQUE (buy_id,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1358</x>
+      <y>735</y>
+      <w>35</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2303</x>
+      <y>2240</y>
+      <w>147</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+products details &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2331</x>
+      <y>2387</y>
+      <w>259</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Products_ref
+--
+product_code: mediumint unsigned AUTO_INCREMENT
+product_id: smallint unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+sales_price: DECIMAL(10,2) NOT NULL
+weight_range: varchar(20)
+is_available: bit(1) NOT NULL
+PRIMARY KEY (product_code)
+UNIQUE (product_id, sub_id)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2380</x>
+      <y>2247</y>
+      <w>21</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2205</x>
+      <y>2107</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2898</x>
+      <y>2170</y>
+      <w>371</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Quality_downgrade_records_details
+--
+quality_downgrade_record_id: INT unsigned NOT NULL (fk)
+collection_code: INT unsigned NOT NULL (fk)
+last_sub_id: tinyint NOT NULL (fk)
+current_sub_id: tinyint NOT NULL (fk)
+downgraded_qt: Decimal(10,2) NOT NULL
+UNIQUE(quality_downgrade_record_id,collection_code,last_sub_id,current_sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2842</x>
+      <y>2170</y>
+      <w>21</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2688</x>
+      <y>1967</y>
+      <w>245</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Waste_products
+--
+waste_product_id: INT unsigned AUTO_INCREMENT
+house_id: smallint unsigned NOT NULL (fk)
+total_wastage: Decimal(10,2) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY(waste_product_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2800</x>
+      <y>2051</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1918</x>
+      <y>2009</y>
+      <w>203</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes># Agri_inputs_stock
+--
+receive_id: INT AUTO_INCREMENT
+warehouse_id: smallint NOT NULL (fk)
+product_id: smallint unsigned NOT NULL (fk)
+amount: Decimal(10,2) NOT NULL
+buying_price: DECIMAL(10,2) NOT NULL
+expired_date: DATE NOT NULL
+entry_on: DATETIME NOT NULL
+entry_by: INT NOT NULL (fk)
+PRIMARY KEY (receive_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2163</x>
+      <y>1743</y>
+      <w>35</w>
+      <h>518</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..n
+ ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;720.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2114</x>
+      <y>2009</y>
+      <w>49</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3416</x>
+      <y>3521</y>
+      <w>217</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes># Direct_sales #
+--
+sales_id: INT NOT NULL AUTO INCREMENT
+shop_id: INT NOT NULL (fk)
+total_payment: DECIMAL(10,2) NOT NULL
+customer_name: varchar(20) NOT NULL
+customer_mobile: varchar(11)
+entry_on: DATETIME NOT NULL
+entry_by: INT NOT NULL
+PRIMARY KEY (sales_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1351</x>
+      <y>2205</y>
+      <w>203</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Units
+--
+unit_id: tinyint unsigned AUTO_INCREMENT
+unit_name: varchar(10) NOT NULL
+entry_by: INT unsigned NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (unit_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3619</x>
+      <y>3416</y>
+      <w>203</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Direct_sales_details #
+--
+sales_id: INT NOT NULL (fk)
+product_id: INT NOT NULL (fk)
+sub_id: INT NOT NULL (fk)
+qt: DECIMAL(10,2) NOT NULL
+UNIQUE (sales_id,product_id,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3206</x>
+      <y>3353</y>
+      <w>238</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes># Offline_Shops #
+--
+offline_shop_id: INT NOT NULL AUTO INCREMENT
+shop_name: varchar(30) NOT NULL
+shop_type: varchar(30) NOT NULL
+area: varchar(20) NOT NULL
+address: varchar(11)
+create_on: DATETIME NOT NULL
+created_by: INT NOT NULL
+PRIMARY KEY (offline_shop_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3437</x>
+      <y>3416</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+offline product sales details &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3521</x>
+      <y>3423</y>
+      <w>21</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3388</x>
+      <y>3199</y>
+      <w>245</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes># Agri_inputs_pre_demands #
+--
+pre_demands_id: INT NOT NULL AUTO INCREMENT
+offline_shop_id: INT NOT NULL (fk)
+customer_name: varchar(20) NOT NULL
+customer_mobile: varchar(11)
+entry_on: DATETIME NOT NULL
+entry_by: INT NOT NULL
+PRIMARY KEY (pre_demands_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3619</x>
+      <y>3318</y>
+      <w>210</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Agri_inputs_pre_demands_details #
+--
+pre_demands_id: INT NOT NULL (fk)
+product_id: INT NOT NULL (fk)
+sub_id: INT NOT NULL (fk)
+qt: DECIMAL(10,2) NOT NULL
+UNIQUE (pre_demands_id,product_id,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3437</x>
+      <y>3346</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3507</x>
+      <y>3297</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2471</x>
+      <y>567</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Land_tracer
+--
+land_tracer_id: INT unsigned AUTO_INCREMENT
+land_id: INT unsigned NOT NULL (fk)
+updated_by: INT unsigned NOT NULL (fk)
+updated_on: DATETIME NOT NULL
+primary key (land_tracer_id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1988</x>
+      <y>413</y>
+      <w>217</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Assign_lands
+--
+production_id: BIGINT unsigned NOT NULL (fk)
+land_id: INT unsigned NOT NULL (fk)
+UNIQUE (production_id,land_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1995</x>
+      <y>469</y>
+      <w>21</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2289</x>
+      <y>567</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+land updates records &gt;</panel_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2324</x>
+      <y>1127</y>
+      <w>245</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes># Test_info
+--
+test_id: INT unsigned NOT NULL AUTO_INCREMENT
+tester_id: INT unsigned NOT NULL (fk)
+trip_id: INT unsigned NOT NULL (fk)
+test_on: DATETIME NOT NULL
+status: varchar(20) NOT NULL
+message: varchar(100)
+PRIMARY KEY(test_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2450</x>
+      <y>1015</y>
+      <w>21</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>595</y>
+      <w>154</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+&lt; </panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2170</x>
+      <y>2667</y>
+      <w>231</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes># System_loss
+--
+system_loss_id: INT unsigned AUTO_INCREMENT
+order_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (system_loss_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2247</x>
+      <y>2821</y>
+      <w>175</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+order adjustment &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2408</x>
+      <y>2828</y>
+      <w>238</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Order_adjustments
+--
+order_track_id: BIGINT unsigned NOT NULL (fk)
+adjust_qt_in_default_unit: Decimal(10,2) NOT NULL
+UNIQUE(order_track_id)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2422</x>
+      <y>2730</y>
+      <w>224</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># System_loss_details
+--
+system_loss_id: INT unsigned NOT NULL (fk)
+collection_code: INT unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+amount: Decimal(10,2) NOT NULL
+UNIQUE(system_loss_id,collection_code,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2268</x>
+      <y>2772</y>
+      <w>168</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+system loss &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2303</x>
+      <y>2737</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1785</x>
+      <y>1813</y>
+      <w>217</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Direct_sales
+--
+sales_id: BIGINT unsigned AUTO_INCREMENT
+shop_id: smallint unsigned NOT NULL (fk)
+total_payment: DECIMAL(10,2) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (sales_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1561</x>
+      <y>1715</y>
+      <w>238</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Direct_sales_details
+--
+sales_id: BIGINT unsigned NOT NULL (fk)
+product_code: MEDIUMINT unsigned NOT NULL (fk)
+qt: DECIMAL(10,2) NOT NULL
+unit_sales_price: DECIMAL(10,2) NOT NULL
+UNIQUE (sales_id,product_code)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1792</x>
+      <y>1708</y>
+      <w>280</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+&lt; direct sales product details </panel_attributes>
+    <additional_attributes>380.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1890</x>
+      <y>1715</y>
+      <w>21</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1708</x>
+      <y>1638</y>
+      <w>364</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+&lt; </panel_attributes>
+    <additional_attributes>500.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1498</x>
+      <y>1617</y>
+      <w>217</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Pre_demands_details #
+--
+pre_demands_id: INT unsigned NOT NULL (fk)
+product_id: smallint unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: DECIMAL(10,2) NOT NULL
+UNIQUE (pre_demands_id,product_id,sub_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1715</x>
+      <y>1491</y>
+      <w>287</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes># Pre_demands #
+--
+pre_demands_id: INT unsigned NOT NULL AUTO INCREMENT
+shop_id: smallint unsigned unsigned NOT NULL (fk)
+customer_name: varchar(20) NOT NULL
+customer_mobile: varchar(11)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (pre_demands_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1834</x>
+      <y>1589</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2394</x>
+      <y>1659</y>
+      <w>378</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>warehouse_stock_details
+--
+warehouse_stock_id: int unsigned NOT NULL(house_id + collection_code + sub_id) 
+weight_range: varchar(20) NOT NULL
+crates: tinyint unsigned NOT NULL
+buying_price: Decimal(10,2) NOT NULL
+unit_cost: Decimal(10,2) NOT NULL
+PRIMARY KEY (warehouse_stock_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2604</x>
+      <y>1743</y>
+      <w>161</w>
+      <h>371</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+ Only warehouse stock details ^</panel_attributes>
+    <additional_attributes>10.0;510.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2072</x>
+      <y>5054</y>
+      <w>168</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes># Default_Sub_ID
+--
+product_id: INT NOT NULL (fk)
+sub_id: varchar(4) NOT NULL
+sales_place: varchar(20) NOT NULL
+PRIMARY KEY (sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2345</x>
+      <y>1764</y>
+      <w>210</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Stock_Transfer_details
+--
+transfer_id: INT unsigned NOT NULL (fk)
+collection_code: INT unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+UNIQUE (transfer_id,collection_code,sub_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2338</x>
+      <y>1925</y>
+      <w>224</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Stock_Transfers
+--
+transfer_id: INT unsigned AUTO_INCREMENT
+from_house_id: smallint unsigned NOT NULL (fk)
+to_house_id: smallint unsigned NOT NULL (fk)
+transfer_by: INT unsigned NOT NULL (fk)
+transfer_on: DATETIME NOT NULL
+PRIMARY KEY (transfer_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2394</x>
+      <y>2044</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+Transfer products v</panel_attributes>
+    <additional_attributes>30.0;80.0;30.0;20.0;110.0;20.0;110.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2422</x>
+      <y>1841</y>
+      <w>35</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+ ^</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2429</x>
+      <y>2009</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1323</x>
+      <y>1239</y>
+      <w>203</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes># Pre_demands_details
+--
+pre_demand_id: INT NOT NULL (fk)
+product_id: smallint unsigned NOT NULL (fk)
+sub_id: tinyint unsigned NOT NULL (fk)
+qt: Decimal(10,2) NOT NULL
+market_id: INT NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+entry_by: INT NOT NULL
+UNIQUE (pre_demand_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1568</x>
+      <y>1211</y>
+      <w>238</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Pre_demands
+--
+pre_demand_id: INT unsigned AUTO_INCREMENT
+product_id: smallint unsigned NOT NULL (fk)
+total_qt: Decimal(10,2) NOT NULL
+demand_date: DATE NOT NULL
+PRIMARY KEY (pre_demand_id,product_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1113</x>
+      <y>1603</y>
+      <w>210</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Pre_demands_Places #
+--
+pre-demand_id: INT unsigned NOT NULL (fk)
+house_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (pre_demands_id,house_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1113</x>
+      <y>1694</y>
+      <w>231</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes># Pre_demands #
+--
+pre-demand_id: INT unsigned AUTO_INCREMENT
+entry_by: INT unsigned NOT null
+demand_date: DATE NOT NULL
+PRIMARY KEY (pre_demands_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>1211</y>
+      <w>210</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes># Markets
+--
+market_id: INT unsigned AUTO_INCREMENT
+area: varchar(30) NOT NULL
+address: varchar(100) NOT NULL
+entry_by: INT unsigned NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (market_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2121</x>
+      <y>3325</y>
+      <w>196</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Packaging
+--
+order_id: BIGINT unsigned NOT NULL (fk)
+packaged_by: INT unsigned NOT NULL(fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2016</x>
+      <y>3318</y>
+      <w>119</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+packaging &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1344</x>
+      <y>2303</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Wishlist
+--
+customer_id: INT unsigned NOT NULL (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+qt: DECIMAL(10,2) NOT NULL
+entry_on: datetime not null
+UNIQUE (customer_id,product_code)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1253</x>
+      <y>1204</y>
+      <w>329</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+pre-demands &gt;
+bg=red</panel_attributes>
+    <additional_attributes>10.0;20.0;450.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1442</x>
+      <y>1211</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-
+bg=red</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1239</x>
+      <y>217</y>
+      <w>203</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Trip_drivers
+--
+trip_id: BIGINT unsigned NOT NULL (fk)
+driver_id: int unsigned NOT NULL (fk)
+payment_amount: Decimal(10,2) NOT NULL
+is_present: bit(1) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL,
+UNIQUE (trip_id,driver_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1169</x>
+      <y>161</y>
+      <w>511</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..1
+&lt; Assing drivers to trip</panel_attributes>
+    <additional_attributes>710.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>168</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>763</x>
+      <y>203</y>
+      <w>119</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Trip_drivers:
+
+payment_status:
+   Unpaid,Partial paid,Paid
+
+is_present:
+   0,1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2436</x>
+      <y>2240</y>
+      <w>245</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Sub_id_details
+--
+sub_id: tinyint unsigned AUTO_INCREMENT
+size: varchar(6) NOT NULL
+grade: tinyint(3) unsigned NOT NULL
+unit: varchar(10) NOT NULL
+sales_place: varchar(10) NOT NULL
+PRIMARY KEY (sub_id)
+CHECK (size IN ("Large", "Medium", "Small","None"))
+CHECK (sales_place IN ("B2B Online",
+                                        "Outlet",
+                                        "B2C Online"))</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1862</x>
+      <y>4130</y>
+      <w>266</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>ERP_transactions
+--
+erp_transaction_id: BIGINT unsigned AUTO_INCREMENT
+transaction_type_id: tinyint unsigned NOT NULL (fk)
+transaction_from: INT unsigned NOT NULL(fk)
+transaction_to: INT unsigned NOT NULL (fk)
+transaction_amount: Decimal(10,2) NOT NULL
+transaction_date: DATE NOT NULL
+slip_type: varchar(20)
+slip: varchar(100)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (erp_transaction_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1484</x>
+      <y>4382</y>
+      <w>231</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>Transaction_types:
+
+transaction_way:
+   Bank to Bank
+   Bank to User
+   User to Bank
+   Bank to cash counter
+   Cash counter to Bank
+   Cash counter to Cash counter
+   cash counter to user
+   user to cash counter
+trasaction_type: 
+   withdraw, deposit, pay,receive, transfer,return
+...........................................
+transfer: 
+   suppose KS has multiple bank accounts.
+and we want to transfer tk amoung those account.
+
+type: Bank to Bank
+transaction_type: transfer
+                                            </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>4074</y>
+      <w>210</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>ERP_bank
+--
+bank_id: tinyint unsigned AUTO_INCREMENT
+account_no: INT unsigned NOT NULL
+bank_name: varchar(20) NOT NULL
+branch_name: varchar(20),
+account_holder: varchar(30) NOT NULL
+balance_amount: Decimal(10,2) NOT NULL
+is_active: bit not null
+created_by: INT unsigned NOT NULL (fk)
+create_on: DATETIME NOT NULL
+PRIMARY KEY (bank_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3948</y>
+      <w>252</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes># Opening_balance
+--
+opening_balance_id INT unsigned AUTO_INCREMENT,
+opening_balance Decimal(10,2) NOT NULL,
+opening_cash_balance Decimal(10,2) NOT NULL,
+opening_bank_balance DECIMAL(10,2) NOT NULL,
+entry_on DATETIME NOT NULL,
+PRIMARY KEY (opening_balance_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1673</x>
+      <y>4067</y>
+      <w>483</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+&lt; bank to/from cash  &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;670.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1974</x>
+      <y>4081</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2142</x>
+      <y>4053</y>
+      <w>245</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Cash_counters
+--
+cash_counter_id: tinyint unsigned AUTO_INCREMENT
+cash_counter_name: varchar(30) NOT NULL
+balance: Decimal(10,2) NOT NULL
+is_active: bit(1) not null
+created_by: INT unsigned NOT NULL (fk)
+create_on: DATETIME NOT NULL
+PRIMARY KEY (cash_counter_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1253</x>
+      <y>4144</y>
+      <w>196</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes># KS_accounts
+--
+user_id: INT NOT NULL (fk)
+cash_returnable: Decimal(10,2) NOT NULL
+UNIQUE (user_id)
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1673</x>
+      <y>4123</y>
+      <w>189</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+&lt; Bank to Bank &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0;140.0;70.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1764</x>
+      <y>4130</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2170</x>
+      <y>4151</y>
+      <w>112</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..n
+Cash counter to user
+ v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2121</x>
+      <y>4200</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2289</x>
+      <y>4172</y>
+      <w>224</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Assign_cash_counter
+--
+cash_counter_id: tinyint unsigned NOT NULL (fk)
+user_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (cash_counter_id,user_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1806</x>
+      <y>3220</y>
+      <w>217</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>Orders
+--
+order_id: BIGINT unsigned AUTO_INCREMENT
+customer_id: INT unsigned NOT NULL (fk)
+total_amount: DECIMAL(10,2) NOT NULL
+due: Decimal(10,2) NOT NULL
+delivery_charge: Decimal(10,2) NOT NULL
+created_on: DATETIME NOT NULL
+status: tinyint(6) unsigned NOT NULL
+comments: varchar(50)
+time_slot: varchar(30) NOT NULL
+customer_mobile: varchar(11) NOT NULL
+delivery_on: DATETIME
+PRIMARY KEY (order_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1708</x>
+      <y>3486</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..1
+&lt; assign delivery</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2135</x>
+      <y>4263</y>
+      <w>259</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>IOU_transfer_clearances
+--
+cash_clearance_id: BIGINT unsigned NOT NULL (fk)
+transfer_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (cash_clearance_id,transfer_erp_transaction_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1939</x>
+      <y>3955</y>
+      <w>301</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Cash_on_delivery_clearance
+--
+invoice_clearance_id: BIGINT unsigned AUTO_INCREMENT
+cash_receive_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+PRIMARY KEY (invoice_clearence_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2233</x>
+      <y>3857</y>
+      <w>252</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Cash_on_delivery_clearance_list
+--
+invoice_clearence_id: BIGINT unsigned NOT NULL (fk)
+invoice_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (invoice_clearence_id,invoice_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2296</x>
+      <y>3913</y>
+      <w>98</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+order clearence v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2233</x>
+      <y>3955</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2177</x>
+      <y>5131</y>
+      <w>217</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Total_reports
+--
+report_id: INT NOT NULL AUTO_INCREMENT
+income: Decimal(10,2) NOT NULL
+revenue: Decimal(10,2) NOT NULL
+loss: Decimal(10,2) NOT NULL
+expense: Decimal(10,2) NOT NULL
+cost_rate:Decimal(10,2) NOT NULL
+products_cost: Decimal(10,2) NOT NULL
+report_day: DATE NOT NULL
+PRIMARY KEY (report_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1106</x>
+      <y>0</y>
+      <w>245</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Collection_points
+--
+collection_point_id: INT unsigned AUTO_INCREMENT
+area: varchar(30) NOT NULL
+address: varchar(100) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (collection_point_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>819</x>
+      <y>567</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Trip_details
+--
+trip_id: BIGINT unsigned NOT NULL (fk)
+buy_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (trip_id,buy_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>168</y>
+      <w>224</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Trips
+--
+trip_id: BIGINT unsigned AUTO_INCREMENT
+collection_point_id: INT unsigned NOT NULL (fk)
+transportation_cost: Decimal(10,2) NOT NULL
+other_cost: Decimal(10,2) NOT NULL
+trip_date: DATE NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+status: tinyint(2) unsigned NOT NULL
+PRIMARY KEY (trip_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>609</x>
+      <y>651</y>
+      <w>252</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Price_analyze
+--
+price_analyze_id: BIGINT unsigned AUTO_INCREMENT
+daily_operating_budget_cost: Decimal(10,2) NOT NULL
+daily_delivery_cost: DECIMAL(10,2) NOT NULL
+safe_predemand_qt_percentage: INT NOT NULL
+profit_level_percentage: INT NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (price_analyze_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>238</x>
+      <y>651</y>
+      <w>231</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Price_analyze_details
+--
+price_analyze_id: BIGINT unsigned NOT NULL (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+estimated_qt: Decimal(10,2) NOT NULL
+average_buying_price: DECIMAL(10,2) NOT NULL
+profitless_price: DECIMAL(10,2) NOT NULL
+profitable_price: Decimal(10,2) NOT NULL
+generated_sales_price: Decimal(10,2) NOT NULL
+custom_sales_price: Decimal(10,2) NOT NULL
+UNIQUE (price_analyze_id,product_code)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>0</y>
+      <w>336</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+&lt; assign ks agent</panel_attributes>
+    <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1512</x>
+      <y>7</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>644</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+&lt; analyze results</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>903</y>
+      <w>231</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>?? cost
+--
+?? cost: INT NOT NULL AUTO_INCREMENT
+operating_cost: Decimal(10,2) NOT NULL
+delivery_cost: Decimal(10,2) NOT NULL
+predemand_percentage: Decimal(10,2) NOT NULL
+profit_level_percentage: Decimal(10,2) NOT NULL
+entry_by: INT NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (??)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1113</x>
+      <y>287</y>
+      <w>21</w>
+      <h>343</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1001</x>
+      <y>602</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1..n
+&lt; trip's buying list</panel_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1414</x>
+      <y>49</y>
+      <w>224</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Assign_agents
+--
+collection_point_id: INT unsigned NOT NULL (fk)
+agent_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (collection_point_id,agent_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1148</x>
+      <y>84</y>
+      <w>35</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+ v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>903</x>
+      <y>686</y>
+      <w>231</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Price_analyze_buying_list
+--
+price_analyze_id: BIGINT unsigned NOT NULL (fk)
+buy_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (price_analyze_id,buy_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>651</y>
+      <w>343</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0.1
+&lt; </panel_attributes>
+    <additional_attributes>470.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1022</x>
+      <y>658</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2807</x>
+      <y>4109</y>
+      <w>238</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>IOU_Indirect_expense_clearances
+--
+cash_clearance_id: BIGINT unsigned NOT NULL (fk)
+expense_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (cash_clearance_id,expense_id)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2534</x>
+      <y>4067</y>
+      <w>266</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>IOU_clearance
+--
+cash_clearance_id: BIGINT unsigned AUTO_INCREMENT
+employee_id: INT unsigned NOT NULL (fk)
+accountant_id: INT unsigned NOT NULL (fk)
+cash_counter_id: tinyint unsigned NOT NULL (fk)
+cash_return_erp_transaction_id: BIGINT unsigned
+clearance_on: DATETIME NOT NULL
+PRIMARY KEY (cash_clearance_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2387</x>
+      <y>4165</y>
+      <w>301</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+transfer trasaction clearance ^</panel_attributes>
+    <additional_attributes>220.0;10.0;220.0;150.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2639</x>
+      <y>4298</y>
+      <w>259</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Direct_expenses_n_transactions
+--
+pay_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+expense_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (pay_erp_transaction_id,expense_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2380</x>
+      <y>4067</y>
+      <w>168</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+&lt; return transaction</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2191</x>
+      <y>4683</y>
+      <w>112</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Unplan_expense:
+
+status:
+   not use,using,used
+
+type:
+   assets,over expense</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2170</x>
+      <y>4522</y>
+      <w>259</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>#Unplan_expense
+--
+unplan_expense_id: INT unsigned AUTO_INCREMENT
+type: varchar(30) NOT NULL
+expense_amount: Decimal(10,2) NOT NULL
+expense_rate: Decimal(10,2) NOT NULL
+expense_issue: DATE NOT NULL
+status: varchar(20) NOT NULL
+start: DATE
+end: DATE
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (unplan_expense_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2478</x>
+      <y>4480</y>
+      <w>210</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Budget_expenses
+--
+budget_id: INT unsigned AUTO_INCREMENT
+budget_on_date: date not null
+date_from date not null,
+date_to date not null,
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (budget_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2485</x>
+      <y>4634</y>
+      <w>294</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Budget_expense:
+
+expense_type:
+   fixed,variable
+expense_time:
+   daily,monthly,yearly
+expense_name:
+   total salaries,utility bill,office rent,
+   last month of over_expense,last month of under expense...etc
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>3318</x>
+      <y>4270</y>
+      <w>210</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Expenses:
+
+direct_expense:
+   0,1
+   0: means expense from transfer transaction  
+   1: means expense from pay transaction
+
+entry_by should be accountant_id</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3045</x>
+      <y>4291</y>
+      <w>245</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Expenses
+--
+expense_id: BIGINT unsigned AUTO_INCREMENT
+expense_cat_id: SMALLINT UNSIGNED not null (fk),
+amount: Decimal(10,2) NOT NULL
+bill_copy: varchar(100)
+comments: varchar(100)
+is_direct_expense: bit(1) NOT NULL
+PRIMARY KEY (expense_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2023</x>
+      <y>4270</y>
+      <w>1036</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+direct expense by pay transaction &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0;1460.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2716</x>
+      <y>4347</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2793</x>
+      <y>4060</y>
+      <w>294</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1..n
+&lt; </panel_attributes>
+    <additional_attributes>10.0;20.0;400.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2919</x>
+      <y>4067</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2044</x>
+      <y>4011</y>
+      <w>35</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2016</x>
+      <y>3556</y>
+      <w>196</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2107</x>
+      <y>3563</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2023</x>
+      <y>3591</y>
+      <w>161</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Pay_of_B2B_orders
+--
+invoice_id: BIGINT NOT NULL (fk)
+order_id: BIGINT NOT NULL (fk)
+pay: Decimal(10,2) NOT NULL
+UNIQUE (invoice_id, order_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2324</x>
+      <y>3703</y>
+      <w>119</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+get cash invoice list v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2583</x>
+      <y>3507</y>
+      <w>217</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Customer_cash_payments
+--
+invoice_id: BIGINT unsigned NOT NULL (fk)
+delivery_man_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+verify_by: INT unsigned DEFAULT NULL
+verify_on: DATETIME
+UNIQUE (invoice_id)
+
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2583</x>
+      <y>3696</y>
+      <w>203</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Customer_bank_slip_payments
+--
+invoice_id: BIGINT unsigned NOT NULL (fk)
+slip: varchar(100) NOT NULL
+verify_by: INT unsigned DEFAULT NULL
+verify_on: DATETIME NOT NULL
+UNIQUE (invoice_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2198</x>
+      <y>3563</y>
+      <w>294</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>Customer_payments
+--
+invoice_id: BIGINT unsigned AUTO_INCREMENT
+customer_id: INT unsigned NOT NULL (fk)
+payment_method: varchar(9) NOT NULL
+customer_pay_amount: Decimal(10,2) NOT NULL
+invoice_status: varchar(10) NOT NULL
+PRIMARY KEY (invoice_id),
+CHECK(payment_method in ('Cash','Online','Bank slip','None')),
+CHECK(invoice_status in ('Processing','Paid','Failed'))
+
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2485</x>
+      <y>3696</y>
+      <w>112</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1813</x>
+      <y>4991</y>
+      <w>217</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes># Salary #
+--
+salary_id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+type varcarh(30) NOT NULL,
+amount Decimal(10,2), 
+entry_on DATETIME NOT NULL,
+PRIMARY KEY (salary_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>994</x>
+      <y>847</y>
+      <w>259</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Farmers_payments
+--
+pay_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+buy_id: BIGINT unsigned NOT NULL (fk)
+pay_amount: Decimal(10,2) NOT NULL
+UNIQUE (pay_erp_transaction_id, buy_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>875</x>
+      <y>427</y>
+      <w>161</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Buying_agreement:
+
+status = 0 means Not collected,
+status = 1 means Collected,
+status = 2 means Cancelled
+Note: due &gt; 0, if status = Collected
+otherwise, due = 0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1442</x>
+      <y>4221</y>
+      <w>238</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Online_transaction_details
+--
+online_transaction_id: varchar(30) NOT NULL
+erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+user_bank_name: varchar(20) DEFAULT NULL
+user_account_no: INT unsigned DEFAULT NULL,
+transaction_charge: decimal(10,2) NOT NULL
+UNIQUE (online_transaction_id,erp_transaction_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1673</x>
+      <y>4214</y>
+      <w>203</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+&lt; Online transaction details</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1211</x>
+      <y>735</y>
+      <w>35</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1..n
+ v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1169</x>
+      <y>399</y>
+      <w>259</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Trip_drivers_payments
+--
+trip_id: BIGINT unsigned NOT NULL (fk)
+driver_id: int unsigned NOT NULL (fk)
+pay_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+UNIQUE (trip_id,driver_id,pay_erp_transaction_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1288</x>
+      <y>315</y>
+      <w>63</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+Bill pay v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>917</x>
+      <y>35</y>
+      <w>161</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Trips:
+
+status = 0 means On going,
+status = 1 means Completed,
+status = 2 means Cancelled
+
+"On going" means products are not 
+reached physically to warehouse</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2261</x>
+      <y>1064</y>
+      <w>98</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Test_info:
+
+status:
+    test runing, tested</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1862</x>
+      <y>924</y>
+      <w>154</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Collect_n_buy:
+
+status = 0 means Not arrive,
+status = 1 means Arrived,
+status = 2 means Cancelled</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1736</x>
+      <y>4375</y>
+      <w>273</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>Transaction_types
+--
+transaction_type_id: tinyint unsigned AUTO_INCREMENT
+transaction_type: varchar(8) NOT NULL
+transaction_way: varchar(30) NOT NULL
+PRIMARY KEY (transaction_type_id,)
+CHECK(transaction_type IN ('Withdraw',
+                                               'Deposit',
+                                               'Pay',
+                                               'Pay refund',
+                                               'Receive',
+                                               'Transfer',
+                                               'Return')),
+CHECK(transaction_way IN ('Bank to Bank',
+                                              'Bank to User',
+                                              'User to Bank',
+                                              'Bank to cash counter',
+                                              'Cash counter to Bank'
+                                              'Cash counter to Cash counter',
+                                              'Cash counter to user',
+                                              'User to cash counter'))</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1904</x>
+      <y>4270</y>
+      <w>35</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1
+ ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2485</x>
+      <y>3563</y>
+      <w>112</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2569</x>
+      <y>3626</y>
+      <w>273</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Customer_online_payments
+--
+invoice_id: BIGINT unsigned NOT NULL (fk)
+receive_erp_transaction_id: BIGINT unsigned NOT NULL(fk)
+UNIQUE (invoice_id, receive_erp_transaction_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2485</x>
+      <y>3626</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2135</x>
+      <y>4389</y>
+      <w>245</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>IOU_transfer_transactions:
+
+cash_clearance_id = 'Null' means that
+erp_transfer_transaction_id doesn't have been cleared</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2779</x>
+      <y>4480</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Budget_expense_details
+--
+budget_id: INT unsigned NOT NULL (fk)
+expense_cat_id: smallint unsigned not null (fk),
+expense_budget: Decimal(10,2) NOT NULL
+UNIQUE (budget_id,expense_cat_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3080</x>
+      <y>4473</y>
+      <w>273</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Expense_category_list
+--
+expense_cat_id: smallint unsigned AUTO_INCREMENT
+expense_type: varchar(10) NOT NULL
+expense_time: varchar(20) NOT NULL
+expense_name: varchar(30) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (expense_cat_id)
+        CHECK (expense_type IN ("Fixed", "Variable")),
+        CHECK (expense_time IN ("Daily", "Monthly","Yearly"))</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>3171</x>
+      <y>4613</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Expense_category_list:
+
+expense_type:
+   fixed,variable
+expense_time:
+   daily,monthly,yearly
+expense_name:
+   salary,utility_bill,office_rent,
+   transportation_cost, others</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3129</x>
+      <y>4389</y>
+      <w>35</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+ ^</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2681</x>
+      <y>4473</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2982</x>
+      <y>4473</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+&lt; </panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2240</x>
+      <y>4907</y>
+      <w>238</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>note:
+
+opertating cost = (fixed budget cost(monthly)/daily 
+                   + variable cost(daily)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2513</x>
+      <y>4956</y>
+      <w>210</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes># Unplan_expense 
+--
+unplan_expense_id: INT AUTO_INCREMENT
+type: varchar(30) NOT NULL
+expense_amount: Decimal(10,2) NOT NULL
+entry_by: int NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (unplan_expense_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2485</x>
+      <y>4816</y>
+      <w>231</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Expense_rates
+--
+expense_rate_id: INT AUTO_INCREMENT
+expense_category_amount: varchar(30) NOT NULL
+assign_expense_for: varchar(10) not null,
+entry_by: int NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (unplan_expense_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2758</x>
+      <y>4816</y>
+      <w>231</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Active_expense_rates
+--
+active_expense_rate_id: INT AUTO_INCREMENT
+expense_amount: varchar(30) NOT NULL
+assign_expense_for: varchar(10) not null,
+is_status_active: tinyint(1) not null default 0
+entry_by: int NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (active_expense_rate_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2233</x>
+      <y>4816</y>
+      <w>238</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Expense_rates_settings
+--
+expense_rate_settings_id: INT AUTO_INCREMENT
+is_auto_active: tinyint(10) not null
+entry_by: int NOT NULL
+entry_on: DATETIME NOT NULL
+PRIMARY KEY (expense_rate_settings_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2247</x>
+      <y>2387</y>
+      <w>98</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2380</x>
+      <y>4116</y>
+      <w>84</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0;80.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2247</x>
+      <y>2898</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+packaging &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2359</x>
+      <y>3409</y>
+      <w>35</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+ v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2667</x>
+      <y>3332</y>
+      <w>266</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Customer_refund_pay
+--
+wallet_account_id: INT unsigned NOT NULL (fk)
+wallet_erp_transaction_id: BIGINT unsigned NOT NULL (fk)
+unique (wallet_account_id,wallet_erp_transaction_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2443</x>
+      <y>3430</y>
+      <w>224</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Customer_payment_by_wallet
+--
+wallet_account_id: INT unsigned NOT NULL (fk)
+invoice_id: BIGINT unsigned NOT NULL (fk)
+wallet_balance_use: decimal(10,2) NOT NULL
+UNIQUE (wallet_account_id,invoice_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2359</x>
+      <y>3465</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2345</x>
+      <y>3332</y>
+      <w>245</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Customer_wallet_accounts
+--
+wallet_account_id: INT unsigned AUTO_INCREMENT
+customer_id: INT unsigned NOT NULL (fk)
+wallet_balance: decimal(10,2) NOT NULL
+create_on: datetime not null
+PRIMARY KEY (wallet_account_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2583</x>
+      <y>3325</y>
+      <w>98</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2016</x>
+      <y>3395</y>
+      <w>343</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=0..1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;470.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2065</x>
+      <y>3430</y>
+      <w>224</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Customer_refund_ref
+--
+wallet_account_id: INT unsigned NOT NULL (fk)
+order_id: BIGINT unsigned NOT NULL(fk)
+refund_amount: decimal(10,2) NOT NULL
+UNIQUE (wallet_account_id,order_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2177</x>
+      <y>3402</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1995</x>
+      <y>3724</y>
+      <w>161</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes># Pay_of_B2C_orders
+--
+invoice_no: BIGINT NOT NULL (fk)
+order_id: BIGINT NOT NULL (fk)
+UNIQUE (invoice_no, order_id)
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1967</x>
+      <y>3619</y>
+      <w>231</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0;310.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2079</x>
+      <y>3696</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2058</x>
+      <y>2576</y>
+      <w>231</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes># Sales_Price_update_ref
+--
+update_id: BIGINT unsigned NOT NULL (fk)
+product_code: mediumint unsigned NOT NULL (fk)
+new_sales_price: DECIMAL(10,2) NOT NULL
+unique (update_id,product_code)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2065</x>
+      <y>2485</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes># Sales_Price_update
+--
+update_id: BIGINT unsigned AUTO_INCREMENT
+created_by: INT unsigned NOT NULL (fk)
+create_on: DECIMAL(10,2) NOT NULL,
+set_update_at: datetime NOT NULL
+PRIMARY KEY (update_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2786</x>
+      <y>2436</y>
+      <w>231</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes># Products_availibity
+--
+product_code: mediumint unsigned NOT NULL (fk)
+available_qt: decimal(10,2) NOT NULL
+UNIQUE (product_code)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2394</x>
+      <y>3003</y>
+      <w>224</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Order_item_cancels
+--
+order_track_id: BIGINT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_track_id)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2394</x>
+      <y>3087</y>
+      <w>224</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes># Order_item_overrides
+--
+order_track_id: BIGINT unsigned NOT NULL (fk)
+override_qt: Decimal(10,2) NOT NULL
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_track_id)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2261</x>
+      <y>3080</y>
+      <w>147</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2247</x>
+      <y>2996</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2016</x>
+      <y>2695</y>
+      <w>126</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Order_items:
+status = 0 means None
+status = 1 means Return
+status = 2 means Cancel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2373</x>
+      <y>3192</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Order_item_return:
+status = 0 means Pending
+status = 1 means Reached
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3374</y>
+      <w>196</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Order_Fails
+--
+order_id: BIGINT unsigned NOT NULL (fk) 
+fail_type: varchar(15) NOT NULL
+reason: varchar(50)
+entry_by: int unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (order_id)
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1659</x>
+      <y>3367</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+&lt; failed order</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1743</x>
+      <y>2247</y>
+      <w>210</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Order_rules
+--
+product_id: smallint unsigned NOT NULL (fk)
+minimum_qt: decimal(10,2) NOT NULL
+maximum_qt: decimal(10,2) NOT NULL
+start: DATETIME NOT NULL
+end: DATETIME NOT NULL
+entry_by: int unsigned NOT NULL (fk)
+entry_on: datetime NOT NULL
+UNIQUE (product_id)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3073</x>
+      <y>4067</y>
+      <w>210</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Indirect_expense_ref
+--
+expense_id: BIGINT unsigned NOT NULL (fk)
+spender_id: INT unsigned NOT NULL (fk)
+entry_by: INT unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL
+UNIQUE (expense_id)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3136</x>
+      <y>4144</y>
+      <w>35</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+ ^</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1946</x>
+      <y>2240</y>
+      <w>133</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1932</x>
+      <y>7</y>
+      <w>182</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Drivers
+--
+driver_id: INT unsigned NOT NULL (fk)
+vehicle_no: varchar(15) NOT NULL,
+entry_by: int unsigned NOT NULL (fk)
+entry_on: DATETIME NOT NULL</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1834</x>
+      <y>0</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+
+ &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2128</x>
+      <y>735</y>
+      <w>231</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Collect_land_ref
+--
+collection_code: BIGINT unsigned NOT NULL (fk)
+assigned_land_id: INT unsigned NOT NULL (fk),
+collected_harvest_qt: Decimal(10,2) NOT NULL,
+on_harvest_waste_qt: Decimal(10,2) NOT NULL,
+UNIQUE (collection_code,assigned_land_id)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2051</x>
+      <y>735</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+</diagram>

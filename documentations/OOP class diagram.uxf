@@ -1,0 +1,4468 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>2772</y>
+      <w>273</w>
+      <h>476</h>
+    </coordinates>
+    <panel_attributes>Expense
+--
++ addDirectExpense(expense_data: 
+         {
+           expense_type: string,
+           expense_time: string,
+           expense_name: string,
+           amount: float,
+           comment: string,
+           bill_copy: string,
+           spender_id: int
+         });
++ addIndirectExpense(expense_data: 
+         {
+           expense_type: string,
+           expense_time: string,
+           expense_name: string,
+           amount: float,
+           comment: string,
+           bill_copy: string,
+           spender_id: int
+         });      
++ getExpenseCategoryID(expense_type: string,
+                                         expense_time: string,
+                                         expense_name: string): int
++ getExpenseCategoryList(expense_type: string
+                                           expense_time: string): json_array
++ updateExpenseCategory(expense_data :
+      {
+         expense_type_id,
+         new_expense_type: string,
+         new_expense_time: string,
+         new_expense_name: string
+      });
++ addExpenseCategory(expense_cat_data : 
+     {
+        expense_type: string,
+        expense_time: string,
+        expense_name: string
+     });
++ addBudgetExpense(expense_list_data : Array)
++ deleteExpense(expense_id: int)
+
+
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>3304</y>
+      <w>168</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Expense_Report
+--
+- expense_type: string,
+- expense_time: string,
+- from_date: date
+- to_date: date
+--
++ getExpenseReport() : Array
++ getDirectExpenseReport(): Array
++ getIndirectExpenseReport(): Array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>819</x>
+      <y>2324</y>
+      <w>280</w>
+      <h>385</h>
+    </coordinates>
+    <panel_attributes>IOU_Transaction
+--
++ getClearableTransferTransactionList(employee_id: int):
+      [
+        {
+          transaction_id: int,
+          transaction_type: string,
+          from_name: string,
+          from_id: int,
+          to_name: string,
+          to_id: int,
+          transaction_amount: float,
+          transaction_date: string,
+          entry_by: int,
+          entry_by_name: string,
+          entry_on: string
+        }
+      ]
++ getClearedTransferTransactionList(cash_clearance_id: int):
+      [
+        {
+          transaction_id: int,
+          transaction_type: string,
+          from_name: string,
+          from_id: int,
+          to_name: string,
+          to_id: int,
+          transaction_amount: float,
+          transaction_date: string,
+          entry_by: int,
+          entry_by_name: string,
+          entry_on: string
+        }
+      ]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>455</x>
+      <y>161</y>
+      <w>273</w>
+      <h>525</h>
+    </coordinates>
+    <panel_attributes>CashCounter
+--
++ createAccount(cash_counter_name: string,
+                           is_active: bool)
++ addBalance(cash_counter_id: int,
+                       add_amount: double)
++ useBalance(cash_counter_id: int,
+                       use_amount: double)                       
++ getCounterList():
+      [
+         {
+           cash_counter_id: int,
+           counter_name: string,
+         }
+      ]
++ getCounterBalanceList():
+     [
+       {
+         cash_counter_id: int,
+         counter_name: string,
+         balance: double
+       }
+     ]
++ getCounterDetails(cash_counter_id: int): 
+     {
+       cash_counter_id: int,
+       counter_name: string,
+       balance: double
+       accountants: [
+                               {
+                                 accountant_id: int,
+                                 name: string,
+                                 mobile: string
+                               }
+                            ]
+                         
+     }
++ updateCounterStatus(bank_id: int,
+                                      is_active: int)                                            
++ doCounterTransaction(transaction_type: string,
+                                        transfer_method: string,
+                                        transaction_amount: double,
+                                        transaction_from: cAsh_counter_id,
+                                        transaction_to: int                                        
+                                       ): string
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>3304</y>
+      <w>210</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>TransactionReport
+--
+- transaction_way: string
+- transaction_type: string
+- from_date: date
+- to_date: date
+--
++ TransactionReport(search_data:
+        {
+          transaction_way: int,
+          transaction_type: string,
+          from_date: date,
+          to_date: date
+        }
+   )
+- makeDynamicSqlQuery(): string
++ getTransactionReportByDetails() : Array
++ getTransactionReporotByCategory() : Array
++ getTransactionReportBySummary() : Array                    
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1057</x>
+      <y>763</y>
+      <w>308</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt; interface &gt;&gt;
+/* Clearance */
+--
++ getAccountClearableEmployeeList(): json_array
++ getAccountClearableDetails(user_id: int): json_array
+
++ doClearance(clearance_data: json): string
+
++ getAccountClearanceHistoryList(): json_array
++ getAccountClearanceHistoryDetails(clearance_id : int) : json_array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1379</x>
+      <y>1141</y>
+      <w>301</w>
+      <h>763</h>
+    </coordinates>
+    <panel_attributes>Delivery_Clearance
+--
++ getAccountClearableEmployeeList():
+         [
+            {
+              delivery_man_id: int,
+              delivery_man_name: string,
+              mobile: string,
+              total_cash_received: double
+            }
+         ]
++ getAccountClearableDetails(delivery_man_id: int):
+          [
+            {
+              invoice_id: int,
+              customer_id: int,
+              customer_name: string, 
+              customer_pay_amount: float,
+              invoice_status: string,
+              entry_by: int,
+              entry_by_name: string,
+              entry_by_user_type: string,
+              entry_on: string
+            }
+          ]  
++ doClearance(delivery_man_id: int,
+                         cash_counter_id: int ): string          
++ getAccountClearanceHistoryList():
+        [
+           {
+             invoice_clearance_id: int,
+             delivery_man_id: int,
+             delivery_man_name: string,
+             mobile: string,
+             cash_recived: double,
+             clearance_on: string,
+             cash_counter_id: int,
+             cash_counter_name: string,
+             accountant_id: int,
+             accountant_name: string,
+             cash_receive_transaction_id: int
+           }
+        ]
++ getAccountClearanceHistoyDetails(clearance_id: int):
+        {
+          invoice_clearance_id: int,
+          delivery_man_id: int,
+          delivery_man_name: string,
+          delivery_man_mobile: string,
+          clearance_on: string,
+          cash_couter_id: int,
+          cash_counter_name: string,
+          accountant_id: int,
+          accountant_name: string,
+          cash_receive_transaction_id: int,
+          cash_receive: double,
+          cleared_invoice_ref_list: [
+                                                    {
+                                                       invoice_id: int,
+                                                       invoice_cash_amount: float,
+                                                       customer_id: int,
+                                                       customer_name: string,
+                                                       recent_order_id: int,
+                                                       recent_order_status: string,
+                                                      recent_order_delivery_on: string
+                                                   }
+                                                ]   
+         }                   
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>819</y>
+      <w>259</w>
+      <h>1449</h>
+    </coordinates>
+    <panel_attributes>IOU_Clearance
+--
++ getAccountClearableEmployeeList():
+       [
+         {
+           employee_id: int,
+           user_type: string,
+           employee_name: string,
+           mobile: string,
+           total_cash_transfer: double
+         }
+       ]
++ getAccountClearableDetails(user_id: int):
+      {
+         employee_id: int,
+         employee_name: string,
+         mobile: string,
+         iou_transactions:
+              [
+                {
+                   transaction_id: int,
+                   transaction_type: string,
+                   from_name: string,
+                   from_id: int,
+                   to_name: string,
+                   to_id: int,
+                   transaction_date: string,
+                   entry_by: int,
+                   entry_by_name: string,
+                   entry_on: string
+                }
+             ]
+      clearable_expenses:
+             [
+               {
+                 expense_id: int,
+                 expense_type: string,
+                 expense_time: string,
+                 expense_name: string,
+                 amount: float,
+                 bil_copy: string,
+                 comment: string,
+                 entry_by: int,
+                 entry_by_name: string,
+                 entry_on: string
+               }
+             ]
+      }
+      
+- getIOU_returableAmount(employee_id: int): float      
++ doClearance(employee_id: int,
+                         cash_counter_id: int): string      
+- getAccountClearanceHistoyInfo(clearance_id: int):
+      {
+        clearance_id: int,
+        clearance_on: string,
+        clearance_from_cash_counter_id: int,
+        cash_counter_name: string,
+        accountant_id: int,
+        accountant_name: string,
+        employee_id: int,
+        employee_name: string,
+        mobile: string
+        total_transfer: double,
+        total_expense: double,
+        return: double
+      }
++ getAccountClearanceHistoyList():
+      [
+        {
+           clearance_id: int,
+           clearance_on: string,
+           clearance_from_cash_counter_id: int,
+           cash_counter_name: string,
+           accountant_id: int,
+           accountant_name: string,
+           employee_id: int,
+           employee_name: string,
+           mobile: string
+           total_transfer: double,
+           total_expense: double,
+           return: double
+         }
+       ]      
++ getAccountClearanceHistoyDetails(clearance_id: int):
+      {
+        clearance_id: int,
+        clearance_on: string,
+        clearance_from_cash_counter_id: int,
+        cash_counter_name: string,
+        accountant_id: int,
+        accountant_name: string,
+        employee_id: int,
+        employee_name: string,
+        mobile: string
+        total_transfer: double,
+        total_expense: double,
+        return: double
+        iou_cleared_transactions:
+               [
+                 {
+                    transaction_id: int,
+                    transaction_type: string,
+                    from_name: string,
+                    from_id: int,
+                    to_name: string,
+                    to_id: int,
+                    transaction_date: string,
+                    entry_by: int,
+                    entry_by_name: string,
+                    entry_on: string
+                 }
+              ]
+       cleared_expenses:
+              [
+                {
+                  expense_id: int,
+                  expense_type: string,
+                  expense_time: string,
+                  expense_name: string,
+                  amount: float,
+                  bil_copy: string,
+                  comment: string,
+                  entry_by: int,
+                  entry_by_name: string,
+                  entry_on: string
+                }
+              ]
+    }
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1358</x>
+      <y>770</y>
+      <w>63</w>
+      <h>385</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>868</x>
+      <y>770</y>
+      <w>203</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2100</x>
+      <y>1141</y>
+      <w>308</w>
+      <h>532</h>
+    </coordinates>
+    <panel_attributes>InvoiceClearance
+--
++ getClearableInvoiceIDList(user_id: int):
+          {
+             invoice_id_list: [ ]
+           }
++ getClearableInvoicesTotalAmount(delivery_man_id: int): double
++ getClearableInvoiceList(delivery_man_id: int): 
+         [
+            {
+              invoice_id: int,
+              customer_id: int,
+              customer_name: string, 
+              customer_pay_amount: float,
+              invoice_status: string,
+              entry_by: int,
+              entry_by_name: string,
+              entry_by_user_type: string,
+              entry_on: string
+            }
+          ]
++ getClearedInvoiceClearanceSummary(invoice_clearence_id: int):
+        {
+           invoice_clearance_id: int,
+           delivery_man_id: int,
+           delivery_man_name: string,
+           delivery_man_mobile: string,
+           clearance_on: string,
+           cash_couter_id: int,
+           cash_counter_name: string,
+           accountant_id: int,
+           accountant_name: string,
+           cash_receive_transaction_id: int,
+           cash_receive: double
+         }
++ getClearedInvoiceClearanceRefList(invoice_clearence_id: int):
+      [
+         {
+            invoice_id: int,
+            invoice_cash_amount: float,
+            customer_id: int,
+            customer_name: string,
+            recent_order_id: int,
+            recent_order_status: string,
+            recent_order_delivery_on: string
+         }
+      ]       
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>2317</y>
+      <w>217</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>IOU_Expense
+--
++ getClearableExpenseList(employee_id: int):
+       [
+         {
+           expense_id: int,
+           expense_type: string,
+           expense_time: string,
+           expense_name: string,
+           amount: float,
+           bil_copy: string,
+           comment: string,
+           entry_by: int,
+           entry_by_name: string,
+           entry_on: string
+         }
+      ]
++ getClearedExpenseList(cash_clearance_id):
+      [
+         {
+           expense_id: int,
+           expense_type: string,
+           expense_time: string,
+           expense_name: string,
+           amount: float,
+           bil_copy: string,
+           comment: string,
+           entry_by: int,
+           entry_by_name: string,
+           entry_on: string
+         }
+      ]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>791</x>
+      <y>2912</y>
+      <w>245</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>Transaction
+--
+- doTransactionHelper(transaction_type: "string",
+                                    transaction_way: "string",
+                                    transaction_from: int,
+                                    transaction_to: int,
+                                    transaction_amount: double
+                                  )
++ doTransaction(transaction_data: 
+       {
+          transaction_type: "string",
+          transaction_way: "string",
+          transaction_from: int,
+          transaction_to: int,
+          transaction_amount: double,
+          transaction_date: string,
+          slip_type: string,
+          slip: string
+       } ): int
++ getTransactionTypesList():
+    [
+       {
+          transaction_type_id: int,
+          transaction_type: string,
+          transaction_way: string
+       }
+     ]
+- getTransactionTypeID( transaction_type: string,
+                                          transaction_way: string): int
++ getBankAccountNo(bank_name: string): int                                          
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1519</x>
+      <y>3738</y>
+      <w>245</w>
+      <h>406</h>
+    </coordinates>
+    <panel_attributes>Invoice
+--
+- addInvoiceOrderRef(invoice_id: int,
+                                   paying_orders:[
+                                        { order_id: int,
+                                          pay: double
+                                        }
+                                      ]
+                                   )
++ createInvoice(customer_id: int,
+                          payment_method: string,
+                          external_pay_amount: double): string
+
++ getInvoiceDetails(invoice_id : int) : 
+      {
+        invoice_id: int,
+        payment_method: string,
+        customer_pay_amount: double,
+        wallet_amount_use: double,
+        invoice_status: string,
+        customer_id: int,
+        customer_name: string,
+        customer_mobile: string,
+        pay_on: string
+        payOfB2BOrderList:[
+                                    {
+                                      order_id: int,
+                                      total_amount: double,
+                                      due: double,
+                                      pay_now: double
+                                    }
+                                 ]
+      }
++ createInvoicePdfForm(invoice_id: int): pdfFile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1099</x>
+      <y>4046</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>CashCounter
+--
++ getAccountBalanceList() : Array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>651</x>
+      <y>2261</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>2261</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>735</x>
+      <y>2261</y>
+      <w>21</w>
+      <h>525</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;730.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>791</x>
+      <y>2261</y>
+      <w>21</w>
+      <h>665</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;930.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>336</x>
+      <y>1281</y>
+      <w>203</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Note..
+Clearable expense means "Indirect expense"</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1029</x>
+      <y>4172</y>
+      <w>133</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Order
+--
++ createOrder(order_data:
+      [
+        {
+          product_code: int,
+          qt: float
+        }
+      ]
+  )</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1743</x>
+      <y>4298</y>
+      <w>259</w>
+      <h>406</h>
+    </coordinates>
+    <panel_attributes>OrderList
+--
++ getDeliverableOrderList(customer_id: int): 
+      {
+         CurrentOrders: [
+                                     {
+                                       order_id: int,
+                                       order_on: datetime,
+                                       total_amount: double,
+                                       due: double,
+                                       order_status: int
+                                     }
+                                  ]
+       }
++ getDeliveredDueOrderList(customer_id: int): 
+       {
+          LastDeliveredDueOrders: [
+                                                      {
+                                                        order_id: int,
+                                                        order_on: datetime,
+                                                        delivery_on: datetime,
+                                                        order_status: int,
+                                                        total_amount: double,
+                                                        due: double  
+                                                      }
+                                                   ]
+       }
++ getDueOrderList(customer_id: int): 
+     {
+       DueOrders: [
+                             {
+                               order_id: int
+                               due: double  
+                             }
+                          ]
+     }</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1239</x>
+      <y>3591</y>
+      <w>203</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>InvoiceReport
+--
+- customer_mobile: sttring
+- payment_method: string
+- invoice_status: string
+- from_date: string
+- to_date: string
+--
++ InvoiceReport(search_data:
+        {
+          customer_mobile: sttring
+          payment_method: string,
+          invoice_status: string,
+          from_date: string,
+          to_date: string
+        }):
+        data:
+             [
+                {
+                  invoice_id: int,
+                  payment_method: string,
+                  customer_pay_amount: double,
+                  invoice_status: string,
+                  customer_id: int,
+                  customer_name: string,
+                  customer_mobile: string,
+                  pay_on: string
+                }
+              ]
+
+- makeDynamicSqlQuery(): string
++ getInvoiceListSearchBy(): Json_Array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>714</x>
+      <y>4172</y>
+      <w>189</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>CartOrder
+--
++ getCartProductList(customer_id: int):
+    [
+      {
+        product_code: int,
+        name: string,
+        grade: int,
+        size: string,
+        qt: float
+        unit: string
+      }
+    ]
++ addCart(product_data:
+       {
+         customer_id: int,
+         product_code: int,
+         qt: float
+       ))
++ setCartProductQt(customer_id: int, 
+                                product_code: int,
+                                new_qt: float)
++ deleteCartProduct(customer_id: int,
+                                 product_code: int
+                               )                
++ deleteCartAllProducts(customer_id: int)                       </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>4928</y>
+      <w>189</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>OrderItemReturn
+--
++ addReturnQt(order_track_id: int,
+                        return_qt: float,
+                        return_type: string,
+                        reason: string)
++ updateReturnStatus(order_track_id: int,
+                                    status: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1421</x>
+      <y>4935</y>
+      <w>196</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>OrderDelivery
+--
++ makeDelivery(orders_data: 
+     {
+       otp: int,
+       order_id: int,
+       return_product:[
+                                  {
+                                    order_track_id: int,
+                                    return_qt: float,
+                                    return_type: string,
+                                    return_reason: string
+                                  }
+                                ]
+     }
+   )</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2016</x>
+      <y>4816</y>
+      <w>301</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>OrdersOfDelivery
+--
++ getUnassignedDeliverableOrderList(): json_Array
++ getDeliverymanList(): json_Array
++ sendOrderListToDeliveryman(order_list_data: json_array)
++ getAssignedDeliverableOrderList(deliveryman_id: int): json_Array
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2758</x>
+      <y>5166</y>
+      <w>287</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes># DeliverableOrders
+--
++ getCustomerListOfDeliverableOrders(): Array
++ getCustomerPaymentReviewDetails(customer_id: int): Array
++ getCustomerListOfDues(): Array
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2002</x>
+      <y>5229</y>
+      <w>273</w>
+      <h>329</h>
+    </coordinates>
+    <panel_attributes>CustomerPaymentPreview
+--
++ getCustomerPaymentPreviewDetails(customer_id: int): 
+           {
+             customer_id: int,
+             customer_name: string,
+             customer_mobile: string,
+             customer_address: string,
+             wallet_balance: double,
+             CurrentOrders: [
+                                         {
+                                           order_id: int,
+                                           order_on: datetime,
+                                           total_amount: double,
+                                           due: double,
+                                           order_status: int,
+                                         }
+                                      ],
+              LastDeliveredDueOrders: [
+                                                          {
+                                                            order_id: int,
+                                                            order_on: datetime,
+                                                            delivery_on: datetime,
+                                                            order_status: int,
+                                                            total_amount: double,
+                                                            due: double                                                                                                                         
+                                                          }
+                                                        ]
+            }
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>917</x>
+      <y>945</y>
+      <w>287</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+iou_Transaction.getClearableTransferTransactionList(user_id)
+iou_Expense.getClearableExpenseList(user_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1610</x>
+      <y>1260</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1715</x>
+      <y>1253</y>
+      <w>189</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+getClearableInvoiceList(delivery_man_id)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>917</x>
+      <y>1736</y>
+      <w>350</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>
+getAccountClearanceHistoyInfo(clearance_id: int): json_object
+iou_Transaction.getClearedTransferTransactionList(clearance_id): json_array
+iou_Expense.getClearedExpenseList(clearance_id): json_array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>952</y>
+      <w>77</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>1757</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1386</x>
+      <y>5131</y>
+      <w>245</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>orderOTP.useOTP(otp: int): bool
+int return_items = return_product[length];
+if return_items == 0
+     then status = 3
+else if return_items &gt; 0
+     then status = 4
+orderStatus.updateStatus(order_id: int,
+                                          status: int)
+if(status == 4) 
+{
+    for return_product[0] upto return_prduct[length]
+       orderItemReturn.addReturnQt(order_track_id: int,
+                                                        return_qt: float,
+                                                        return_type: string,
+                                                        reason: string)
+}                                                        </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1547</x>
+      <y>4956</y>
+      <w>119</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0;150.0;310.0;120.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>476</x>
+      <y>4900</y>
+      <w>168</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>OrderOTP
+--
++ generateOTP(order_id: int): int
++ sendOTP(cutomer_mobile: string)
+
++ useOTP(otp: int): bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>770</x>
+      <y>5005</y>
+      <w>182</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+orderStatus.updateStatus(order_id: int,
+                                          status = 1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>4949</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>791</x>
+      <y>4886</y>
+      <w>161</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>OrderCancel
+--
++ cancelOrder(order_id: int,
+                        cancel_type: string,
+                        reason: string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>5593</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>TransactionFromTo
+--
++ getEmployeeList(): Array
++ getInvestorList(): Array
++ getCashCounterList(): Array
++ getERP_BankList(): Array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2009</x>
+      <y>4907</y>
+      <w>385</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>DeliverableOrDueCustomerList
+--
++ getDeliverableOrDueReceivableCustomerList():            
+             [
+               { 
+                 customer_id: int,
+                 name: string,
+                 mobile: string,
+                 numberOfOrders: int,
+                 deliverable_amount: double,
+                 due: double,
+                 address: string
+               }
+             ]
++ getDeliverableOrDueReceivableCustomerListByAssignedOrder(deliveryman_id: int): 
+              [
+               { 
+                 customer_id: int,
+                 name: string,
+                 mobile: string,
+                 numberOfOrders: int,
+                 deliverable_amount: double,
+                 due: double,
+                 address: string
+               }
+             ]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1806</x>
+      <y>5621</y>
+      <w>210</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>CustomerAccount
+--
++ getWalletAccountID(customer_id: int): int
+
++ getWalletBalance(customer_id: int): double
+
++ getWalletAccountDetails(customer_id: int): 
+       {
+         wallet_account_id: int,
+         wallet_balance: float
+       }</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>812</x>
+      <y>5978</y>
+      <w>126</w>
+      <h>448</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0;160.0;620.0;130.0;620.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>427</x>
+      <y>6370</y>
+      <w>476</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>orderItemReturn.updateReturnStatus(order_track_id: int,
+                                                             return_status = 1)
+/* //retrieve house_id, collection_code order_id, product_id, sub_id, sales_price using order_track_id */
+updateStockQt(updateData: json_array)
+customerAccountAction.addRefundableOrderRef(customer_id,
+                                                                               order_id,
+                                                                               return_amount = return_qt_default_unit * sales_price)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>5621</y>
+      <w>539</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>750.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1113</x>
+      <y>4725</y>
+      <w>336</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;460.0;10.0;460.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1372</x>
+      <y>5621</y>
+      <w>280</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>CustomerAccountAction
+--
++ getRefundableCustomerList(): Json_Array
+- addWalletBalance(customer_id: int, add_amount: double)
++ addRefundableOrderRef(customer_id: int,
+                                           order_id: int,
+                                           return_amount: double)
++ useWalletBalance(customer_id: int,
+                                 use_amount: double)
+
++ useWalletForInvoice(customer_id: int,
+                                     invoice_id: int,
+                                     require_wallet_amount: double)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1722</x>
+      <y>5845</y>
+      <w>224</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+addWalletBalance(customer_id, return_amount)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1589</x>
+      <y>5663</y>
+      <w>147</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0;170.0;280.0;190.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1064</x>
+      <y>5733</y>
+      <w>245</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>SendBackWalletBalance
+--
++ sendBackCustomerWalletBalance(customer_id: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>427</x>
+      <y>6244</y>
+      <w>476</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>OrderItemReturn.updateReturnStatus(order_track_id: int,
+                                                              status = 1)
+/* //retrieve house_id, collection_code, order_id, product_id, sub_id, sales_price using order_track_id */
+
+transferStock(transfer_data: json_array)
+customerAccountAction.addRefundableOrderRef(customer_id,
+                                                                               order_id,
+                                                                               return_amount = return_qt_default_unit * sales_price)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1169</x>
+      <y>5761</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1407</x>
+      <y>5838</y>
+      <w>245</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+getWalletAccountDetails(customer_id: int): json_array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1547</x>
+      <y>5691</y>
+      <w>154</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0;200.0;240.0;150.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1498</x>
+      <y>6041</y>
+      <w>238</w>
+      <h>441</h>
+    </coordinates>
+    <panel_attributes>Category
+--
++ addCategory(category_name: string,
+                         image_url:string)
++ getCategoryList():
+      [
+        {
+          cat_id: int,
+          name: string,
+          image_url: string
+        }
+      ]
++ getCategoryChildList(parent_cat_id: int):
+      [
+        {
+          child_cat_id: int,
+          name: string,
+          image_url: string
+        }
+      ]
++ getCatgoryIdWithNameList():
+     [
+       {
+         cat_id: int,
+         name: string
+       }
+     ]      
++ updateCategory(cat_id: int,
+                              name: string,
+                              image_url: string)
++ assignChildCategory(parent_cat_id: int,
+                                     child_cat_id; int)
++ updateAssignChildCategory(parent_cat_id,
+                                                 old_child_cat_id: int,
+                                                 new_child_cat_id: int)
++ removeChildCategory(parent_cat_id: int,
+                                     child_cat_id: int)
+                                                                                                               
++ deleteCategory(cat_id: int): string
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1029</x>
+      <y>6041</y>
+      <w>196</w>
+      <h>931</h>
+    </coordinates>
+    <panel_attributes>Product
+--
++ addProduct(product_data: 
+       {
+         cat_id: int,
+         name: string,
+         description: string,
+         product_image: string,
+         short_video: string,
+         default_unit: string,
+         is_available: bool
+       }
+    )
++ updateProduct(product_data: 
+       {
+         product_id: int,
+         cat_id: int,
+         product_name: string,
+         description: string,
+         product_image: string,
+         short_video: string,
+         is_available: bool
+       }
+    )
++ addProductSubDetails(data:
+       {
+         product_id: int,
+         grade: int,
+         size: string,
+         unit: string,
+         sales_place: string,
+         sales_price: float,
+         weight_range: string,
+         is_available: bool
+       }
++ updateProductSubDetails(data:
+      {
+         product_code: int,
+         grade: int,
+         size: string,
+         unit: string,
+         sales_place: string
+      }
++ getProductDetails(product_id: int): 
+       {
+         product_name: string,
+         category_name: string,
+         description: string,
+         product_image: string,
+         short_video: string,
+         default_unit: string,
+         details: 
+                  [
+                     {
+                       product_code: int,
+                       grade: int,
+                       size: string,                       
+                       unit: string,
+                       sales_place: string,
+                       sales_price: float
+                     }
+                   ]
+       }
++ getProductList(): 
+       [
+          {
+             product_id: int,
+             product_name: string,
+             cat_id: int,
+             category_name: string,
+             description: string,
+             product_image: string,
+             short_video: string,
+             default_unit: string,
+             price_range: string
+          }
+       ]
+             
++ updatePrice(product_code: int,
+                        sale_price: float)
++ updateAssigedCategory(product_id: int,
+                                          new_cat_id: int)
++ deleteProduct(product_id: int)                                          </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1498</x>
+      <y>6503</y>
+      <w>182</w>
+      <h>686</h>
+    </coordinates>
+    <panel_attributes>House
+--
++ addHouse(house_data: 
+      {
+        house_id: int,
+        house_name: string,
+        house_type: string,
+        area: string,
+        address: string,
+        mobile: string
+        }
+      )
++ getHouseIdWithNameList(): 
+      [
+        {
+          house_id: int,
+          name: string
+        }
+      ]
++ getHouseNameList(): nameList: [ ]
++ getHouseID(house_name: string): int      
++ getHouseList():
+     [
+       {
+         house_id: int,
+         name: string,
+         house_type: string,
+         area: string,
+         address: string,
+         mobile: string
+       }
+     ]
++ getHouseListExcept(house_id: int):
+     [
+       {
+         house_id: int,
+         name: string,
+         house_type: string,
+         area: string,
+         address: string,
+         mobile: string
+       }
+     ]
++ updateHouseDetails(house_data:
+      {
+        house_name: string,
+        house_type: string,
+        area: string,
+        address: string,
+        mobile: string
+      }
+    )
++ getHouseDetails(house_id: int):
+      {
+        name: string,
+        house_type: string,
+        area: string,
+        address: string,
+        mobile: string
+      }
++ deleteHouse(house_id: int)      </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1169</x>
+      <y>7371</y>
+      <w>245</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>ProductAnalyze
+--
++ getAnalyzeReportList(): json_array
++ getAnalyzeDetailsReport(price_analyze_id: int): json
++ doAnalyze(data: json)
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>966</x>
+      <y>4886</y>
+      <w>245</w>
+      <h>714</h>
+    </coordinates>
+    <panel_attributes>OrderPackage
+--
++ doPackageOnEachItem(package_ref: 
+          {
+            order_track_id: int,
+            house_id: int,
+            collection_code,
+            qt_in_default_unt: float
+          }
+    )
++ doPackageComplete(order_id: int)
++ getPackagingProgress(order_id: int): 
+     [
+       {
+         order_track_id: int,
+         is_packaged: true,
+       }
+     ]
++ getPackagingInfo(order_track_id: int):
+    {
+      product_code: int,
+      product_name: string,
+      grade: int,
+      size: string,
+      qt: float,
+      default_unit: string,
+      order_unit: string,
+      package_by: int,
+      package_by_name: string,
+      package_on: datetime
+    }      
++ getPackagingRefList(order_track_id: int):
+    [
+      {
+        house_id: int,
+        house_name: string,
+        collection_code: int,
+        qt_in_default_unit: float
+       }
+     ]
++ getPackagingDetails(order_track_id: int): 
+     {
+      product_code: int,
+      product_name: string,
+      grade: int,
+      size: string,
+      qt: float,
+      default_unit: string,
+      order_unit: string,
+      package_by: int,
+      package_by_name: string,
+      package_on: datetime,
+      packaging_ref:[
+                                 {
+                                    house_id: int,
+                                    house_name: string,
+                                    collection_code: int,
+                                    qt_in_default_unit: float
+                                 }
+                              ]
+    }
++ getPackagingCollectionCodeList(order_track_id: int): 
+           collection_code_list:[  ]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1218</x>
+      <y>4991</y>
+      <w>182</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+orderStatus.updateStatus(order_id: int,
+                                          status = 2)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1134</x>
+      <y>4991</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1498</x>
+      <y>4179</y>
+      <w>168</w>
+      <h>329</h>
+    </coordinates>
+    <panel_attributes>OrderReport
+--
+- customer_id: int
+- order_status: int
+- payment_status: string
+- from_date: string
+- to_date: string
+--
++ OrderReport(search_data:
+     {
+       customer_id: int
+       order_status: string,
+       payment_status: string,
+       from_date: string,
+       to_date: string
+     }
+- makeDynamicSqlQuery(): string
++ getOrderListSearchBy():
+     [
+       {
+         order_id: int,
+         customer_name: string,
+         customer_order_mobile: string,
+         total_amount: float,
+         due: float,
+         create_on: string,
+         status: int,
+         delivery_on: string
+       }
+    ]
+       </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1960</x>
+      <y>4697</y>
+      <w>56</w>
+      <h>553</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;770.0;60.0;770.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2352</x>
+      <y>5250</y>
+      <w>294</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>customerAccount.getWalletBalance(customer_id: int): double
+orderList.getDeliverableOrderList(customer_id: int): Json_Array
+orderList.getDeliveredDueOrderList(customer_id: int): json_array
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2254</x>
+      <y>5250</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1939</x>
+      <y>3717</y>
+      <w>105</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>
+&lt;&lt; interface &gt;&gt;
+/*InvoicePay*/
+--
++ pay(json_data: json)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1757</x>
+      <y>4095</y>
+      <w>63</w>
+      <h>217</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;290.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1680</x>
+      <y>3836</y>
+      <w>168</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1848</x>
+      <y>3584</y>
+      <w>210</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>CashPay
+--
++ pay( json_data:
+             {
+               customer_id: int,
+               customer_pay_amount: double,
+               payment_receiver: delivery_man_id
+             } ): string      
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2121</x>
+      <y>3675</y>
+      <w>182</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>OnlinePay
+--
++ pay( json_data:
+             {
+               customer_id: int,
+               payment_method: string,
+               customer_pay_amount: double               
+             } ): string
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1988</x>
+      <y>3675</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2037</x>
+      <y>3724</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1757</x>
+      <y>3738</y>
+      <w>196</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>260.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1722</x>
+      <y>5789</y>
+      <w>196</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+getWalletAccountID(customer_id: int): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1631</x>
+      <y>5649</y>
+      <w>112</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0;140.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1400</x>
+      <y>5789</y>
+      <w>252</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+useWalletBalance(customer_id, require_wallet_amount)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1561</x>
+      <y>5726</y>
+      <w>119</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0;150.0;120.0;130.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1645</x>
+      <y>5621</y>
+      <w>175</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+layer=1</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1834</x>
+      <y>3794</y>
+      <w>343</w>
+      <h>476</h>
+    </coordinates>
+    <panel_attributes>json_array dueOrders = orderList.getDueOrderList(customer_id: int)
+for dueOrders[i] upto dueOrders[length]
+   total_due += dueOrder["due"];
+customerAccount.getWalletAccountDetails(customer_id: int): json_array
+double total_payment = wallet_balance + external_pay_amount;
+
+/*  /* add and create invoice_id  */ */
+
+customerAccountAction.useWalletForInvoice(customer_id: int,
+                                                                         invoice_id: int,
+                                                                         requireWalletAmount: double);
+json_array payingOrders;
+for i = 0; total_payment &gt; 0 ; i++
+{   
+   payingOrders[i]["order_id"] = dueOrders{i]["order_id"]; 
+   if total_payment &gt;= dueOrders[i]["due"]
+         total_payment = total_payment - dueOrders[i]["due"]
+         orderOpt.updateDue(order_id = dueOrders[i]["order_id"],
+                                           currentDuePayment = dueOrders[i]["due"] )         
+         payingOrders[i]["pay"] = dueOrders{i]["due"];
+   else 
+         orderOpt.updateDue(order_id = dueOrders[i]["order_id"],
+                                           currentDuePayment = total_payment );      
+         payingOrders[i]["pay"] = total_payment;
+         break;
+}
+
+addInvoiceOrderRef(invoice_id, paying_orders);
+if(payment_method == "Cash")
+{
+    invoicePay = new CashPay( );
+    invoicePay.pay(customer_id: int,
+                             customer_pay_amount: double,
+                             payment_receiver: delivery_man_id );   
+}    
+else
+{
+    invoicePay = new OnlinePay( );
+    invoicePay.pay(customer_id: int,
+                             customer_pay_amount: double,
+                             payment_receiver: null);
+}
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1456</x>
+      <y>4025</y>
+      <w>77</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>4172</y>
+      <w>210</w>
+      <h>490</h>
+    </coordinates>
+    <panel_attributes>OrderOpt
+--
++ getOrderDetails(order_id : int) : 
+      {
+        order_id: int,
+        total_amount: double,
+        due: double,
+        order_status: int,
+        order_on: datetime,
+        delivery_on: datetime,
+        order_items:[
+                              {
+                                product_code: int,
+                                product_name: string,
+                                grade: int,
+                                size: string,
+                                qt: float,
+                                return_qt: float,
+                                unit: string,
+                                unit_price: double
+                              }
+                           ]
+      }
++ getPackageableOrderDetails(order_id : int) : 
+      {
+        order_id: int,
+        customer_id: int,
+        customer_name: string,
+        mobile: string,
+        order_on: datetime,
+        order_items:[
+                              {
+                                product_code: int,
+                                product_name: string,
+                                grade: int,
+                                size: string,
+                                qt: float,
+                                unit: string
+                              }
+                           ]
+      }      
++ updateDue(order_id: int,
+                      currentDuePayment: double)
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>4718</y>
+      <w>168</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>OrderStatus
+--
++ updateStatus(order_id: int,
+                         order_status: string)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>4851</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>CheckOTP
+--
++ getOTP(order_id): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>917</x>
+      <y>4760</y>
+      <w>70</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;90.0;10.0;90.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1092</x>
+      <y>4760</y>
+      <w>21</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1505</x>
+      <y>4522</y>
+      <w>161</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>makeDynamicSqlQuery(): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1624</x>
+      <y>4361</y>
+      <w>77</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0;90.0;250.0;60.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1225</x>
+      <y>3955</y>
+      <w>224</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>makeDynamicSqlQuery(data: json_array): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1421</x>
+      <y>3927</y>
+      <w>56</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;60.0;40.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>3668</y>
+      <w>203</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>InvoiceUpdate
+--
++ updateInvoiceStatus(invoice_id: int,
+                                     invoice_status: string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>644</x>
+      <y>5593</y>
+      <w>210</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>Stock
+--
++ addStock(stock_data:
+         {
+            house_id: iint,
+            product_id: int,
+            collection_code: int,
+            sub_id: string,
+            qt: float
+          }
+    )
+- updateStockQt(updateData:
+        {
+          house_id: int,
+          product_id: int,
+          collection_code: int,
+          sub_id: string,
+          qt: float
+        }
+    )
++ transferStock(transfer_data: 
+        {
+           from_house_id: int,
+           to_house_id: int,
+           transfer_stock: [
+                                       {
+                                          product_id: int,
+                                          collection_code: int,
+                                          sub_id: string,
+                                          transfer_qt: float
+                                        }
+                                    ]
+        }
+    )                       
+
++ stockBackIn(order_track_id: int,
+                        return_qt_default_unit: float,
+                        selected_collection_code: int)
+
++ stockBackInAndTransfer(data:
+       {
+         order_track_id: int,
+         selected_collection_code: int,
+         return_qt_default_unit: float,
+         to_house_id: int
+       }
+  )
++ getOrderWiseStockList(product_code: int):
+     [
+       {
+         house_id: int,
+         house_name: string,
+         collection_code: int,
+         available_qt_in_default_unit: float
+       }
+     ]  </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1029</x>
+      <y>5810</y>
+      <w>336</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>
+customerAccountAction.getWalletAccountDetails(customer_id): json_array
+customerAccountAction.useWalletBalance(customer_id: int,
+                                                                     use_amount = wallet_balance)
+transaction_amount = wallet_balance - transaction_charge;
+int transaction_id = onlineTransaction.payRefund( transaction_data:
+                                {
+                                  transaction_from: bank_id,
+                                  transaction_to: user_id,
+                                  user_bank_name: string,
+                                  user_account_no: int,
+                                  transaction_amount: double,
+                                  transaction_charge: float,
+                                  transaction_date: string     
+                                })
+
+/* /* add wallet_account_id with transaction_id */ */
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>6020</y>
+      <w>84</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>721</x>
+      <y>6580</y>
+      <w>189</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>
+if(stock data exist)
+{
+   updateStockQt(stock_data: json_array)
+}
+else
+   addStock(stock_data: json_array)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>784</x>
+      <y>5712</y>
+      <w>224</w>
+      <h>924</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;10.0;300.0;1300.0;180.0;1300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>5012</y>
+      <w>434</w>
+      <h>595</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;600.0;830.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1414</x>
+      <y>7217</y>
+      <w>217</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>
+makeDynamicSql(house_name: string,
+                              product_name: string): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1379</x>
+      <y>7028</y>
+      <w>84</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1169</x>
+      <y>6986</y>
+      <w>231</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>StockReport
+--
+- makeDynamicSql(house_name: string,
+                                product_name: string): string
++ getStockSummary(house_name: string,
+                                  product_name: string):
+     [
+       {
+         house_id: int,
+         house_name: string
+         product_id: int,
+         product_name: string,
+         total_qt: float,
+         unit: string
+       }
+     ]
++ getStockDetails(house_id: int,product_id: int): 
+    {
+      house_name: string,
+      product_name: string
+      unit: string,
+      details:
+         [
+           {
+             sub_id: int,
+             grade: int,
+             size: string,
+             qt: float,
+           }
+         ]
+    }
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1673</x>
+      <y>1141</y>
+      <w>441</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>610.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1715</x>
+      <y>1323</y>
+      <w>357</w>
+      <h>259</h>
+    </coordinates>
+    <panel_attributes>
+json_array invoice_id_list = getClearableInvoiceIDList(delivery_man_id: int);
+double total_amount = getClearableInvoicesTotalAmount(delivery_man_id: int);
+if total_amount &gt; 0
+{
+    int transaction_id = offlineTransaction.receivePayment(transaction_data: 
+       {
+          transaction_from: delivery_man_id,
+          transaction_to: cash_counter_id,
+          transaction_amount: double
+       } )
+
+    for loop
+     {
+        invoiceUpdate.updateInvoiceStatus(invoice_id: int,
+                                                                  invoice_status: "Paid")
+     }  
+    .
+    .
+    .
+}     
+                                      
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1568</x>
+      <y>1414</y>
+      <w>161</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1897</x>
+      <y>3486</y>
+      <w>217</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+payment_method = "Cash" ;
+invoice_status = "Processing" ;
+       
+/* /* store invoice_id with delivery_man_id */ */</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2205</x>
+      <y>3801</y>
+      <w>329</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>
+invoice_status = "Paid" ;
+       
+/* /* getting online_transaction info using payment api */ */
+
+int transaction_id = onlineTransaction.receivePayment(transaction_data:
+       {
+          payment_method: string,
+          transaction_from: customer_id,
+          user_bank_name: string,
+          user_bank_acccount_no: int,          
+          transaction_amount: double,
+          transaction_charge: float
+       } )
+       
+/* /* store transaction_id with invoice_id */ */
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1988</x>
+      <y>3549</y>
+      <w>112</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;80.0;140.0;80.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2254</x>
+      <y>3696</y>
+      <w>91</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0;110.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1008</x>
+      <y>3332</y>
+      <w>245</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>
+getTransactionTypeID( transaction_type: string,
+                                       transaction_way: string): int
+doTransactionHelper()                                       </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>973</x>
+      <y>2996</y>
+      <w>105</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0;130.0;480.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1638</x>
+      <y>1617</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1715</x>
+      <y>1610</y>
+      <w>357</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>
+getClearedInvoiceClearanceSummary(invoice_clearence_id: int): json_object
+
+getClearedInvoiceClearanceRefList(invoice_clearence_id: int): json_array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1071</x>
+      <y>651</y>
+      <w>210</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>ERP_Account
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>917</x>
+      <y>1316</y>
+      <w>280</w>
+      <h>196</h>
+    </coordinates>
+    <panel_attributes>
+ total_amount = getIOU_returableAmount(employee_id: int)
+ int transaction_id;
+ if(total_amount &gt; 0)
+     transaction_id = offlineTransaction.return(transaction_data:
+               {
+                 transaction_from: employee_id,
+                 transaction_to: cash_counter_id,
+                 transaction_amount: total_amount
+               })                 
+ else
+    transaction_id = null
+        
+  .
+  .
+  .
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>1372</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>833</x>
+      <y>0</y>
+      <w>245</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>BankAccount
+--
++ createAccount(data:
+       {
+         account_no: int,
+         bank_name:  string,
+         branch_name: string,
+         account_holder: sring,
+         balance_amount: double,
+         is_acitve: bool
+       })
++ addBalance(bank_id: int
+                       amount: float)
++ useBalance(bank_id: int,
+                       amount: double) 
++ getBankList():
+      [
+         {
+           bank_id: int,
+           bank_name: string,
+         }
+      ]
++ getBankBalanceList():
+     [
+       {
+         bank_id: int,
+         bank_name: string,
+         account_no: string,
+         balance: double
+       }
+     ]
++ getBankDetails(cash_counter_id: int): 
+     {
+       bank_id: int,
+       bank_name: string,
+       account_no: string,
+       balance: double
+       accountants: [
+                               {
+                                 accountant_id: int,
+                                 name: string,
+                                 mobile: string
+                               }
+                            ]
+                         
+     }
++ updateAccountStatus(bank_id: int,
+                                      is_active: int)
++ doBankTransaction(transaction_type: string,
+                                        transfer_method: string,
+                                        transaction_amount: double,
+                                        transaction_from: bank_id,
+                                        transaction_to: int,
+                                        transaction_charge: float,
+                                        transaction_date: string
+                                       ): string                                      </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>273</x>
+      <y>2793</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>offlineTransaction.pay(transaction_data:
+       {          
+          transaction_from: cash_counter_id,
+          transaction_to: 0,
+          transaction_amount: double
+       }): int   
+  .
+  .       
+  .
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>2814</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>294</x>
+      <y>700</y>
+      <w>315</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>if(transaction_type == "Transfer")
+       if(transfer_method == "Cash Counter to User"
+                     or transfer_method == "Cash Counter to Cash Counter")
+               offlineTransaction.transfer(transaction_data:
+                  {
+                     transfer_method: string,
+                     transaction_from: cash_counter_id,
+                     transaction_to: int,
+                     transaction_amount: float
+                  })
+       else "Invaild request"
+            
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>602</x>
+      <y>588</y>
+      <w>161</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>130.0;10.0;210.0;10.0;210.0;220.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>658</x>
+      <y>4900</y>
+      <w>119</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>OrderFail
+--
++ doFail(order_id: int,
+              fail_type: string,
+              reason: string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>77</x>
+      <y>4886</y>
+      <w>154</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>OrderItemCancel
+--
++ doCancel(order_track_id: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>5033</y>
+      <w>224</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+orderItemStatus.updateStatus(order_track_id: int,
+                                                 status = 2)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>4732</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>OrderItemStatus
+--
++ updateStatus(order_track_id: int,
+                         status: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>308</x>
+      <y>5033</y>
+      <w>224</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+orderItemStatus.updateStatus(order_track_id: int,
+                                                 status = 1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>154</x>
+      <y>4914</y>
+      <w>21</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>413</x>
+      <y>4942</y>
+      <w>42</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>40.0;130.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>4774</y>
+      <w>21</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>154</x>
+      <y>4739</y>
+      <w>161</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>4683</y>
+      <w>1071</w>
+      <h>266</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;350.0;300.0;10.0;1510.0;10.0;1510.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2002</x>
+      <y>5551</y>
+      <w>21</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>574</x>
+      <y>5005</y>
+      <w>182</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+orderStatus.updateStatus(order_id: int,
+                                          status = 5)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>4949</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>742</x>
+      <y>4718</y>
+      <w>224</w>
+      <h>196</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;10.0;10.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>973</x>
+      <y>4312</y>
+      <w>224</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+cartOrder.deleteCartProudct(customer_id: int,
+                                               product_code: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1141</x>
+      <y>4193</y>
+      <w>49</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>4172</y>
+      <w>147</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>5810</y>
+      <w>182</w>
+      <h>728</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;10.0;240.0;1020.0;160.0;1020.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>721</x>
+      <y>6475</y>
+      <w>189</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>
+if(stock data exist)
+{
+   updateStockQt(stock_data: json_array)
+}
+else
+   addStock(stock_data: json_array)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1246</x>
+      <y>6503</y>
+      <w>161</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>
+int sub_id = getSubID(data: json)
+if sub_id == null
+   then addSubInfo(data: json)
+else
+    /* update new sub_id in product 
+     using product_code */</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1183</x>
+      <y>6426</y>
+      <w>84</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1302</x>
+      <y>6041</y>
+      <w>175</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>SubID
+--
++ addSubInfo(data:
+     {
+       grade: int,
+       size: string,
+       unit: string,
+       sales_place: string
+     })
++ getSubID(data:
+     {
+       grade: int,
+       size: string,
+       unit: string,
+       sales_place: string
+     }): int
++ getList():
+      [
+        {
+          sub_id: int,
+          grade: int,
+          size: string,
+          unit: string,
+          sales_place: string
+        }
+      ]
++ updateSubInfo(data:
+     {
+       sub_id: int,
+       grade: int,
+       size: string,
+       unit: string,
+       sales_place: string
+     })
++ deleteSubID(sub_id: int): string
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>6041</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1225</x>
+      <y>5355</y>
+      <w>238</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>
+getPackagingInfo(order_track_id: int): json
+getPackagingRefList(order_track_id: int): json_array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1162</x>
+      <y>5327</y>
+      <w>91</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0;110.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1078</x>
+      <y>7504</y>
+      <w>231</w>
+      <h>441</h>
+    </coordinates>
+    <panel_attributes>Production
+--
++ addProduction(data:
+   {
+     farmer_id: INT,
+     product_id: int,
+     cultivation_qt: float,
+     unit: string,
+     cultivation_date: string,
+     probable_harvest_qt: float,
+     probable_harvest_date: string
+    })
++ assignHarvestComplete(production_id: int,
+                                          is_fully_harvested: bool)
++ getProductionList(search_data:
+          {
+            product_id: int,
+            is_fully_harvested: bool
+          }):
+          
+          [
+           {
+             production_id: int,
+             farmer_id: INT,
+             farmer_name: string,
+             farmer_area: string,
+             farmer_address: string,
+             product_id: int,
+             product_name: string,
+             cultivation_qt: float,
+             unit: string,
+             cultivation_date: string,
+             probable_harvest_qt: float,
+             probable_harvest_date: string,
+             actual_harvest_qt: float,
+             is_fully_harvested: bool
+           }
+         ]
++ deleteProduction(production_id: int)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1799</x>
+      <y>7504</y>
+      <w>196</w>
+      <h>882</h>
+    </coordinates>
+    <panel_attributes>TripOfficeView
+--
++ addTrip(data:
+     {
+       collection_point_id: int,
+       transportation_cost: float,
+       other_cost: float,
+       trip_date: string,
+       drivers:[
+                     {
+                       driver_name: string,
+                       mobile: string,
+                       vechile_no: string,
+                       payment_amount: float
+                     },
+                  ]
+      buying_ids:[ ]
+    }
++ updateTripStatus(trip_id: int,
+                                status: int)
++ getTripHistoryList():
+     [
+       {
+         trip_id: int,
+         collection_point_id: int,
+         area: string,
+         address: string,
+         transportation_cost: float,
+         other_cost: float,
+         trip_date: string,
+         entry_by: int,
+         entry_by_name: string,
+         entry_on: string,
+         status: int
+       }
+     ]
++ getTripFullDetails(trip_id: int):
+     {
+       collection_point_id: int,
+       area: string,
+       address: string,
+       transportation_cost: float,
+       other_cost: float,
+       trip_date: string,
+       entry_by: int,
+       entry_by_name: string,
+       entry_on: string,
+       status: int,
+       drivers:[
+                    {
+                      driver_id: int,
+                      name: string,
+                      mobile: string,
+                      vechile_no: string,
+                      payment_amount: float,
+                      paid: float,
+                      is_present: bool,
+                      entry_by: int,
+                      entry_by_name: string,
+                      entry_on: string
+                    }
+                 ],
+        buying_ids:[
+                            {
+                             buying_id: int,
+                             product_name: string,
+                             grade: int,
+                             size: string,
+                             qt: float,
+                             default_unit: string,
+                             buying_price: float,
+                             carring_unit_cost: float
+                           }
+                        ]                       
+       }
++ removeAssignedDriver(trip_id: int,
+                                         driver_id: int)
++ deleteTrip(trip_id: int)
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1344</x>
+      <y>7511</y>
+      <w>231</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>CollectionPoint
+--
++ addCollectionPoint(area: string,
+                                  address: string)
++ getCollectionPointList(): 
+    [
+      {
+        collection_point_id: int,
+        area: string,
+        address: string
+      }
+    ]
++ getCollectionPointDetails(collection_point_id: int):
+    {
+      collection_point_id: int,
+      area: string,
+      address: string,
+      agents:
+            [
+              {
+                agent_id: int,
+                name: string,
+                mobile: string
+              }
+            ]
+     }
++ deleteCollectionPoint(collection_point_id: int)
++ assignAgent(collection_point_id: int,
+                        agent_id: int)
++ removeAgent(collection_point_id: int,
+                          agent_id: int)                        
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1596</x>
+      <y>7504</y>
+      <w>182</w>
+      <h>791</h>
+    </coordinates>
+    <panel_attributes>BuyingAgreement
+--
++ doAgreement(data:
+   {
+     production_id: int,
+     farmer_id: int,
+     collection_point_id: int,
+     due: float,
+     status: int,
+   }
++ updateStatus(buying_id: int,
+                         status: int)
++ getAgreementList(search_data:
+     {
+       product_id: int,
+       status: int
+     }):
+       
+       [
+         {
+           buying_id: int,
+           production_id: int,
+           product_name: string,
+           farmer_id: int,
+           farmer_name: string,
+           farmer_mobile: string,
+           farmer_area: string,
+           farmer_address: string,
+           collection_point_id: int,
+           collection_point_area: string,
+           collection_point_address: string,       
+           due: float,
+           status: int,
+           agreement_date: string,
+           created_by: int,
+           created_by_name: string,
+           create_on: string
+         }
+       ]
++ getAgreementDetails(buying_id: int)
+     {
+       production_id: int,
+       product_name: string,
+       farmer_id: int,
+       farmer_name: string,
+       farmer_mobile: string,
+       farmer_area: string,
+       farmer_address: string,
+       collection_point_id: int,
+       collection_point_area: string,
+       collection_point_address: string,       
+       due: float,
+       status: int,
+       agreement_date: string,
+       created_by: int,
+       created_by_name: string,
+       create_on: string,
+       default_unit: string,
+       products:[
+                       {                           
+                         grade: int,
+                         size: string,
+                         qt: float,                         
+                         buy_price: float,
+                         carrying_unit_cost: float
+                       }
+                     ]                         
+     }     
+     
++ getProductID(buying_id: int): int
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2499</x>
+      <y>7511</y>
+      <w>245</w>
+      <h>322</h>
+    </coordinates>
+    <panel_attributes>TripPayment
+--
++ getTripPaymentDetails(trip_id: int,
+                                        driver_id: int):
+    {
+      driver_name: string,
+      mobile: string,
+      vehicle_no: string,
+      transactions: [
+                             {
+                               transaction_id: int,
+                               transaction_amount: float
+                            }
+                          ]
+     }
+
++ payDriver(trip_id: int,
+                   payment_method: string,
+                   pay_amount: float,                   
+                   transaction_from: int,
+                   transaction_to: driver_id,
+                   user_bank_info:
+                               {
+                                 user_bank_name: string,
+                                 user_bank_account_no: int,
+                                 online_transaction_charge: float,
+                                 online_transaction_date: string
+                               })
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2247</x>
+      <y>8183</y>
+      <w>175</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>Driver
+--
++ getDriverID(name: string,
+                       mobile: string,
+                       vechile_no: string): int
++ getDiverList():
+     [
+       {
+         driver_id: int,
+         name: string,
+         mobile: string,
+         vehicle_no: string
+       }
+     ]
++ getDriverDetails(driver_id: int):
+    {
+      driver_name: string,
+      mobile: string,
+      vehicle_no: string,
+      register_by: int,
+      register_by_name: string,
+      register_on: string
+    }
+
++ addDriver(driver_name: string,
+                   mobile: string,
+                   vehicle_no: string)
++ getNameWithID(vehicle_no: string):
+   {
+     driver_id: int,
+     name: string
+   }
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1169</x>
+      <y>8309</y>
+      <w>273</w>
+      <h>742</h>
+    </coordinates>
+    <panel_attributes>CollectProduct
+--
++ doCollectProduct(data:
+    {
+      buying_id: int,
+      collect_land_ref_list: [
+                                         {
+                                           assigned_land_id: int,
+                                           collected_harvest_amount: float,
+                                           on_harvest_waste_qt: float,
+                                         }
+                                       ]
+      collections: [
+                           {
+                              sub_id: int,
+                              qt: float,
+                              extra_qt: float,
+                              crates: int
+                           }
+                        ]
+     }
+
++ updateStatus(collection_code: int,
+                         status: int)
++ getCollectionList(product_id: int,
+                              status: int):
+      [
+        {
+          collection_code: int,
+          product_id: int,
+          product_name: string,
+          buying_id: int,
+          total_collected_harvest_amount: float,
+          total_on_harvest_waste_qt: float,          
+          entry_by: int,
+          entry_by_name: string,
+          entry_on: string,
+          status: int
+         }
+      ] 
++ getCollectionDetails(collection_code: int):
+      {
+        buying_id: int,
+        product_id: int,
+        product_name: string,
+        collect_land_ref_list: [
+                                           {
+                                             assigned_land_id: int,
+                                             collected_harvest_amount: float,
+                                             on_harvest_waste_qt: float
+                                           }
+                                         ]
+        entry_by: int,
+        entry_by_name: string,
+        entry_on: string,
+        status: int
+        collections: [
+                             {
+                               sub_id: int,
+                               qt: float,
+                               extra_qt: float,
+                               crates: int
+                             }
+                          ]
+       }    
++ deleteCollection(collection_code: int)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1477</x>
+      <y>8323</y>
+      <w>280</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>
+int product_id = buyingAgreement.getProductID(buying_id: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1358</x>
+      <y>8330</y>
+      <w>133</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>8155</y>
+      <w>210</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2478</x>
+      <y>8190</y>
+      <w>161</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>
+if driver_id not found
+     addDriver(driver_name: string,
+                      mobile: string,
+                      vehicle_no: string)
+     int driver_id = Last_insert_id();                 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2394</x>
+      <y>8197</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2268</x>
+      <y>7504</y>
+      <w>196</w>
+      <h>525</h>
+    </coordinates>
+    <panel_attributes>TripAgentView
+--
++ getTripHistoryListByAgent(agent_id: int):
+     [
+       {
+         trip_id: int,
+         collection_point_id: int,
+         area: string,
+         address: string,
+         trip_date: string,
+         status: int
+       }
+     ]
++ getTripDetailsForAgent(trip_id: int,
+                                         agent_id: int):
+      {
+       collection_point_id: int,
+       area: string,
+       address: string,       
+       trip_date: string,     
+       status: int,
+       drivers:[
+                    {
+                      driver_id: int,
+                      name: string,
+                      mobile: string,
+                      vechile_no: string,
+                      is_present: bool
+                    }
+                 ],
+        buying_ids:[
+                            {
+                             buying_id: int,
+                             product_name: string,
+                             grade: int,
+                             size: string,
+                             qt: float,
+                             default_unit: string
+                           }
+                        ]                       
+    }             
++ replaceDriver(trip_id: int,
+                          old_driver_id: int,
+                          new_driver_name: string,
+                          new_driver_mobile: string,
+                          new_driver_vehicle: string)
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2009</x>
+      <y>7413</y>
+      <w>196</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Trip
+--
++ assignDriver(trip_id: int,
+                         driver_id: int )
++ doPresentAssignDriver(trip_id: int,
+                                         driver_id: int) 
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2016</x>
+      <y>7504</y>
+      <w>238</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>
+int driver_id = driver.getDriverID(driver_name: string,
+                                           mobile: string,
+                                          vehicle_no: string)                 
+assignDriver(trip_id: int,
+                    driver_id: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1946</x>
+      <y>7518</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1988</x>
+      <y>8183</y>
+      <w>273</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1939</x>
+      <y>7413</y>
+      <w>84</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2198</x>
+      <y>7413</y>
+      <w>112</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0;140.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2485</x>
+      <y>7924</y>
+      <w>322</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>
+int new_driver_id = driver.getDriverID(driver_name = new_driver_name,
+                                           mobile = new_driver_mobile,
+                                           vehicle_no = new_driver_vehicle_no)                 
+
+/*  /* update driver id */ */</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2415</x>
+      <y>7952</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2303</x>
+      <y>8022</y>
+      <w>21</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2765</x>
+      <y>7595</y>
+      <w>273</w>
+      <h>259</h>
+    </coordinates>
+    <panel_attributes>
+if payment_method == "Cash"
+      transaction_id = offlineTransaction.pay(transaction_data:
+         {          
+           transaction_from: cash_counter_id,
+           transaction_to: driver_id,
+           transaction_amount: double
+         })
+else 
+     transaction_id = onlineTransaction.pay(transaction_data:
+       {          
+          transaction_from: bank_id,
+          transaction_to: user_id,
+          user_bank_name: string,
+          user_bank_acccount_no: int,
+          transaction_amount: double,
+          transaction_charge: float,
+          transaction_date: string,
+          slip: string
+       }) 
+       
+/*  /* add trip_id, driver_id and transaction_id */ */
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2625</x>
+      <y>7686</y>
+      <w>154</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1491</x>
+      <y>8414</y>
+      <w>231</w>
+      <h>497</h>
+    </coordinates>
+    <panel_attributes>FarmerPayment
+--
++ payFarmer(data:
+    {
+      collection_code: int,
+      farmer_id: int,
+      pay_amount: float
+    }
++ payableFarmerList():
+   [
+     {
+       farmer_id: int,
+       name: string,
+       mobile: string,
+       area: string,
+       address: string,
+       payable_amount: float
+     }
+   ]   
++ getPayableAgreementDetailsList(farmer_id: int):
+    {
+      farmer_id: int,
+      name: string,
+      mobile: string,
+      area: string,
+      address: string,
+      collectedAgreementList: [
+                      {
+                        buying_id: int,
+                        agreement_date: string,
+                        agreement_qt: float,
+                        collection_qt: float,
+                        buying_price: float
+                        due: float
+                     }
+                                           ]
+    }
+- getPayableAgreementList(farmer_id: in):
+     [
+       {
+         buying_id: int,
+         due: float
+       }
+     ]
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1750</x>
+      <y>8428</y>
+      <w>273</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>
+ getPayableAgreementList(farmer_id: in): json_array
+int transaction_id = onliineTransaction.pay(transaction_data:
+       {          
+          transaction_from: bank_id,
+          transaction_to: user_id,
+          user_bank_name: string,
+          user_bank_acccount_no: int,
+          transaction_amount: double,
+          transaction_charge: float,
+          transaction_date: string,
+          slip: string
+       })
+       
+/* /* add transaction_id with buying_id and pay_amount */ */</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1638</x>
+      <y>8428</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>2604</y>
+      <w>238</w>
+      <h>889</h>
+    </coordinates>
+    <panel_attributes>OnlineTransaction
+--
+- getPaymentBankAccount(bank_name: string):
+   {
+     bank_id,
+     account_no: int
+   }
+- addUserOnlineTransactionInfo(data:
+   {
+     online_transaction_id: string,
+     erp_transaction_id: int,
+     user_bank_name: string,
+     user_account_no: int,
+     transaction_charge: float
+   }  
++ receivePayment(transaction_data: 
+       {
+          payment_method: string,
+          transaction_from: user_id,
+          online_transaction_id: string,
+          user_bank_name: string,
+          user_bank_acccount_no: int,          
+          transaction_amount: double,
+          transaction_charge: float
+       } ): int
++ pay(transaction_data:
+       {          
+          transaction_from: bank_id,
+          transaction_to: user_id,
+          online_transaction_id: string,
+          user_bank_name: string,
+          user_bank_acccount_no: int,
+          transaction_amount: double,
+          transaction_charge: float,
+          transaction_date: string,
+          slip: string
+       }): int             
++ payRefund( transaction_data:
+      {          
+        transaction_from: bank_id,
+        transaction_to: user_id,
+        online_transaction_id: string,
+        user_bank_name: string,
+        user_account_no: int,
+        transaction_amount: double,
+        transaction_charge: float,
+        transaction_date: string     
+       }): int 
++ transfer(transaction_data:
+      {
+        transfer_method: string,
+        transaction_from: bank_id,
+        transaction_to: int,        
+        transaction_amount: float,
+        transaction_date: string
+        user_bank_info: 
+                                  {
+                                     online_transaction_id: string,
+                                     user_bank_name: string,
+                                     user_account_no: int,
+                                     transaction_charge: float
+                                  })
+      }): void   
++ withdraw(transaction_data:
+      {
+        transaction_from: bank_id,
+        transaction_to: cash_counter_no,
+        transaction_amount: float,
+        transaction_charge: float,
+        transaction_date: string
+      }): void
++ deposit(transaction_data:
+      {
+        transaction_from: cash_counter_no,
+        transaction_to: bank_id,        
+        transaction_amount: float,
+        online_transaction_id: string,
+        transaction_charge: float
+      }): void      
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1526</x>
+      <y>2527</y>
+      <w>336</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>int bank_id = getPaymentBankAccount(bank_name = payment_method)
+int receive_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Receive",
+          transaction_way: "User to Bank",
+          transaction_from: user_id,
+          transaction_to: bank_id,
+          transaction_amount: double,
+          transaction_date: string,
+       })
+bankAccount.addBalance(bank_id: int,
+                                         add_balance: float)
+addUserOnlineTransactionInfo(data: json)                                         
+return receive_ erp_transaction_id</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2296</x>
+      <y>2555</y>
+      <w>217</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>int receive_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Receive",
+          transaction_way: "User to Cash counter",
+          transaction_from: user_id,
+          transaction_to: cash_counter_id,
+          transaction_amount: double,
+          transaction_date: string,
+       })
+cashCounter.addBalance(cash_counter_id: int,
+                                         add_balance: float)
+return receive_ erp_transaction_id                                         </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1533</x>
+      <y>2716</y>
+      <w>203</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>int pay_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Pay",
+          transaction_way: "Bank to User",
+          transaction_from: bank_id,
+          transaction_to: user_id,
+          transaction_amount: double,
+          transaction_date: string,
+       })
+bankAccount.useBalance(bank_id: int,
+                                         use_balance: float)
+addUserOnlineTransactionInfo(data: json)
+return pay_ erp_transaction_id</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2520</x>
+      <y>2688</y>
+      <w>273</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>int pay_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Pay",
+          transaction_way: "Cash Counter to User",
+          transaction_from: cash_counter_id,
+          transaction_to: user_id,
+          transaction_amount: double
+       })
+ cashCounter.useBalance(cash_counter_id: int,
+                                          use_balance: transaction_amount)
+return pay_ erp_transaction_id                                          </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1533</x>
+      <y>2898</y>
+      <w>203</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>int pay_refund_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Pay Refund",
+          transaction_way: "Bank to User",
+          transaction_from: bank_id,
+          transaction_to: user_id,
+          transaction_amount: double,
+          transaction_date: string
+       })
+bankAccount.useBalance(bank_id: int,
+                                         use_balance: float)
+addUserOnlineTransactionInfo(data: json)                    
+return pay_refund_ erp_transaction_id                     </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2289</x>
+      <y>2751</y>
+      <w>217</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>int return_ erp_transaction_id = 
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Return",
+          transaction_way: "User to Cash Counter",
+          transaction_from: employee_id,
+          transaction_to: cash_counter_id,
+          transaction_amount: double
+       })
+cashCounter.addBalance(cash_counter_id: int,
+                                         add_balance: float)
+return pay_ erp_transaction_id                                         </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1764</x>
+      <y>2870</y>
+      <w>266</w>
+      <h>371</h>
+    </coordinates>
+    <panel_attributes>int transfer_erp_transaction_id =
+  doTransaction(transaction_data: 
+       {
+          transaction_type: "Transfer",
+          transaction_way: transfer_method,
+          transaction_from: bank_id,
+          transaction_to: int,
+          transaction_amount: double,
+          transaction_date: string
+       })
+bankAccount.useBalance(bank_id: int,
+                                         use_balance: float)
+if transfer_method == "Bank to Bank"
+    then bankAccount.addBalance(bank_id = transaction_to,
+                                                      add_balance: float)
+             addUserOnlineTransactionInfo(data:
+                  {
+                    online_transaction_id: string,
+                    erp_transaction_id: int,
+                    user_bank_name: null,
+                    user_account_no: null,
+                    transaction_charge: float
+                  })                                 
+else if transfer_method == "Bank to User"
+    then addUserOnlineTransactionInfo(data:
+                  {
+                    online_transaction_id: string,
+                    erp_transaction_id: int,
+                    user_bank_name: string,
+                    user_account_no: int,
+                    transaction_charge: float
+                  })</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2289</x>
+      <y>2912</y>
+      <w>315</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>doTransaction(transaction_data: 
+       {
+          transaction_type: "Transfer",
+          transaction_way: transfer_method,
+          transaction_from: cash_counter_id,
+          transaction_to: int,
+          transaction_amount: double
+       })
+cashCounter.useBalance(cash_counter_id: transaction_from,
+                                         use_balance: transaction_amount)
+if transfer_method == "Cash Counter to Cash Counter"
+    then cashCounter.addBalance(cash_counter_id = transaction_to,
+                                                      add_balance = transaction_amount)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2191</x>
+      <y>2891</y>
+      <w>112</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;100.0;140.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1393</x>
+      <y>3087</y>
+      <w>385</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;80.0;170.0;80.0;170.0;10.0;530.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2191</x>
+      <y>2821</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1407</x>
+      <y>3010</y>
+      <w>140</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2177</x>
+      <y>2730</y>
+      <w>357</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;40.0;140.0;40.0;140.0;10.0;490.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1372</x>
+      <y>2807</y>
+      <w>175</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;110.0;200.0;110.0;200.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2219</x>
+      <y>2688</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1428</x>
+      <y>2660</y>
+      <w>112</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;160.0;110.0;160.0;110.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2051</x>
+      <y>2667</y>
+      <w>189</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>OfflineTransaction
+--
++ ReceivePayment(transaction_data: 
+       {
+          transaction_from: delivery_man_id,
+          transaction_to: cash_counter_id,
+          transaction_amount: double
+       } ): int         
++ pay(transaction_data:
+       {          
+          transaction_from: cash_counter_id,
+          transaction_to: employee_id,
+          transaction_amount: double
+       }): int           
++ return(transaction_data:
+      {
+        transaction_from: employee_id,
+        transaction_to: cash_counter_id,
+        transaction_amount: float
+      }): int
++ transfer(transaction_data:
+      {
+        transfer_method: string,
+        transaction_from: cash_counter_id,
+        transaction_to: int,
+        transaction_amount: float,
+      }): void
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1029</x>
+      <y>2912</y>
+      <w>245</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;330.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1526</x>
+      <y>3108</y>
+      <w>224</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>int erp_transacton_id =
+   doTransaction(transaction_data: 
+       {
+          transaction_type: "Withdraw",
+          transaction_way: "Bank to Cash Counter",
+          transaction_from: bank_id,
+          transaction_to: cash_counter_id,
+          transaction_amount: double,
+          transaction_date: string
+       })
+bankAccount.useBalance(bank_id: int,
+                                         use_balance: float)
+addUserOnlineTransactionInfo(data:
+                  {
+                    online_transaction_id: string,
+                    erp_transaction_id: int,
+                    user_bank_name: null,
+                    user_account_no: null,
+                    transaction_charge: float
+                  })</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1393</x>
+      <y>3304</y>
+      <w>147</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1533</x>
+      <y>3353</y>
+      <w>217</w>
+      <h>245</h>
+    </coordinates>
+    <panel_attributes>int erp_transaction_id =
+  doTransaction(transaction_data: 
+       {
+          transaction_type: "Deposit",
+          transaction_way: "Cash Counter to Bank",
+          transaction_from: cash_counter_id,
+          transaction_to: bank_id,
+          transaction_amount: double
+       })
+cashCounter.useBalance(cash_counter_id: int,
+                                         use_balance: float)
+bankAccount.addBalance(bank_id: int,
+                                         add_balance: float)
+addUserOnlineTransactionInfo(data:
+                  {
+                    online_transaction_id: string,
+                    erp_transaction_id: int,
+                    user_bank_name: null,
+                    user_account_no: null,
+                    transaction_charge: float
+                  })                                         </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1393</x>
+      <y>3395</y>
+      <w>154</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1302</x>
+      <y>5733</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1162</x>
+      <y>203</y>
+      <w>238</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>if(transaction_type == "Transfer")          
+          onlineTransaction.transfer(transaction_data:
+                  {
+                     transfer_method: string,
+                     transaction_from: bank_id,
+                     transaction_to: int,
+                     transaction_amount: float,
+                     transaction_date: string,
+                     user_bank_info: 
+                                  {
+                                     online_transaction_id: string,
+                                     user_bank_name: string,
+                                     user_account_no: int,
+                                     transaction_charge: float
+                                  })
+                  })
+else if (transaction_type == "Withdraw")
+        onlineTransaction.withdraw(transaction_data:
+                {
+                  transaction_from: bank_id,
+                  transaction_to: cash_counter_id,
+                  transaction_amount: float,
+                  transaction_charge: float,
+                  transaction_date: string
+                })
+else if (transaction_type == "Deposit")        
+        onlineTransaction.withdraw(transaction_data:
+                {
+                  transaction_from = cash_counter_id,
+                  transaction_to = bank_id,
+                  transaction_amount: float,
+                  online_transaction_id: string,
+                  transaction_charge: float
+                })</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>532</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+</diagram>
