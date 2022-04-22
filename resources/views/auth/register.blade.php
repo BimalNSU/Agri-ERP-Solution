@@ -29,11 +29,7 @@
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
-<<<<<<< HEAD
-                                <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required>
-=======
                                 <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required >
->>>>>>> 5ea729515e4e82473d52a24596803fcc4be2e0a5
 
                                 @error('role')
                                     <span class="invalid-feedback" role="alert">
