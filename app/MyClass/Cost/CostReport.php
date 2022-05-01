@@ -17,48 +17,48 @@ class CostReport {
         return '';
     }
     public function getCostPaymentsReport1($cost_cat_id = null, $is_recoverable = null, $payment_status = null, $from_date = null, $to_date = null, $optional_cost_id = null){
-            $queryParameters = [];
-            $onStatement = "";
-            $whereCount = 0;
-            $whereStatement = "";
-            if(empty($optional_cost_id) == false) {
-                $onStatement = " AND c.id = ? ";
-                $queryParameters.add($optional_cost_id);
+        $queryParameters = [];
+        $onStatement = "";
+        $whereCount = 0;
+        $whereStatement = "";
+        if(empty($optional_cost_id) == false) {
+            $onStatement = " AND c.id = ? ";
+            $queryParameters.add($optional_cost_id);
+        }
+        else
+        {
+            if(empty($cost_cat_id) == false){
+                $onStatement = " AND c.cost_cat_id = ? ";
+                $queryParameters.add($cost_cat_id);
             }
-            else
-            {
-                if(empty($cost_cat_id) == false){
-                    $onStatement = " AND c.cost_cat_id = ? ";
-                    $queryParameters.add($cost_cat_id);
-                }
-                if(empty($is_recoverable) == false){
-                    $onStatement += " AND c.is_recoverable = ? ";
-                    $queryParameters.add($is_recoverable);
-                }
-                if(empty($payment_status) == false){
-                    if($payment_status == "due") {
-                        $whereCondition = " c.amount > (t1.direct_pay_amounts + t2.iou_pay_amounts) ";                    
-                        $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
-                        $whereCount += 1;
-                    }
-                    else if($payment_status == "paid"){
-                        $whereCondition = " c.amount = (t1.direct_pay_amounts + t2.iou_pay_amounts) ";
-                        $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
-                        $whereCount += 1;
-                    }
-                }
-                if(empty($from_date) == false){                
-                    $whereStatement += getWhereOrAnd($whereCount) + " c.created_at >= ? ";
-                    $queryParameters.add($from_date);
+            if(empty($is_recoverable) == false){
+                $onStatement += " AND c.is_recoverable = ? ";
+                $queryParameters.add($is_recoverable);
+            }
+            if(empty($payment_status) == false){
+                if($payment_status == "due") {
+                    $whereCondition = " c.amount > (t1.direct_pay_amounts + t2.iou_pay_amounts) ";                    
+                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
                     $whereCount += 1;
-                    if(empty($to_date) == false) {
-                        $whereCondition = "c.created_at <= ?";                    
-                        $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
-                        $queryParameters.add($to_date);
-                        $whereCount += 1;
-                    }
                 }
-            }            
+                else if($payment_status == "paid"){
+                    $whereCondition = " c.amount = (t1.direct_pay_amounts + t2.iou_pay_amounts) ";
+                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
+                    $whereCount += 1;
+                }
+            }
+            if(empty($from_date) == false){                
+                $whereStatement += getWhereOrAnd($whereCount) + " c.created_at >= ? ";
+                $queryParameters.add($from_date);
+                $whereCount += 1;
+                if(empty($to_date) == false) {
+                    $whereCondition = "c.created_at <= ?";                    
+                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
+                    $queryParameters.add($to_date);
+                    $whereCount += 1;
+                }
+            }
+        }            
         $query = "
             SELECT c.id cost_id, cc.cost_name, c.amount cost_amount, t1.direct_pay_amounts,
                     t2.iou_pay_amounts, c.bill_copy, c.comments, c.created_by,

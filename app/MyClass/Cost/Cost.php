@@ -1,5 +1,5 @@
 <?php
-namespace App\MyClass;
+namespace App\MyClass\Cost;
 use Illuminate\Support\Facades\DB;
 
 class Cost {
@@ -7,13 +7,15 @@ class Cost {
     {
 
     }
-    public function createCost($cost_cat_id, $amount, $bill_copy = null, $comments = null, $is_recoverable = 0){
-        $placeHolder = [$cost_cat_id, $amount, $bill_copy, $comments, $is_recoverable, $created_by, $created_at];
+    public function createCost($costCatId, $amount, $billCopy = null, $comments = null, $isRecoverable = 0){
+        $createdBy = 1;             //set default userId for test purpose
+        $createdAt = "2022-10-13";  //set current dateTime for test purpose
+        $placeHolder = [$costCatId, $amount, $billCopy, $comments, $isRecoverable, $createdBy, $createdAt];
         $query = "
             INSERT into Costs (cost_cat_id, amount, bill_copy, comments, is_recoverable, created_by, created_at)
                 values( ?, ?, ?, ?, ?, ?, ?)";
         DB::insert($query, $placeHolder);
-        return DB::getPdo()->lastInsertId();
+        return DB::getPdo()->lastInsertId();    // return newly created costId
     }
     public function addCost($cost_data){
         $cost_id = createCost($cost_data["cost_cat_id"], $cost_data["amount"], $cost_data["bill_copy"], $cost_data["comments"]);
@@ -51,7 +53,7 @@ class Cost {
                         values(?, ?)";
         DB::insert($query, [$pay_erp_transaction_id, $cost_id]);     
     }
-    public function updateCost($cost_id, $newAmount, $billCopy, $newComments, $isRecoverable){
+    public function updateCost($costId, $newAmount, $billCopy, $newComments, $isRecoverable){
         $query ="
             update Costs
                 SET amount = ?,                    
@@ -59,7 +61,7 @@ class Cost {
                     comments = ?,
                     is_recoverable = ?
             WHERE cost_id = ?";
-        DB::update($query, [$newAmount, $billCopy, $newComments, $is_recoverable, $cost_id]);
+        DB::update($query, [$newAmount, $billCopy, $newComments, $isRecoverable, $costId]);
     }
     public function getClearableCostList(){
 

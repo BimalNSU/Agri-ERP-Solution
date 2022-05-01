@@ -1,8 +1,8 @@
 <?php
-namespace App\MyClass;
+namespace App\MyClass\ERP_Account;
 use Illuminate\Support\Facades\DB;
 
-class ERP_Account {
+class CashCounter {
    function __constructor()
     {
 
