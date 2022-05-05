@@ -16,45 +16,45 @@ class CostReport {
         }
         return '';
     }
-    public function getCostPaymentsReport1($cost_cat_id = null, $is_recoverable = null, $payment_status = null, $from_date = null, $to_date = null, $optional_cost_id = null){
+    public function getCostListWithPaidAmount($costCatId = null, $isRecoverable = null, $paymentStatus = null, $fromDate = null, $toDate = null, $optionalCostId = null){
         $queryParameters = [];
         $onStatement = "";
         $whereCount = 0;
         $whereStatement = "";
-        if(empty($optional_cost_id) == false) {
+        if(empty($optionalCostId) == false) {
             $onStatement = " AND c.id = ? ";
-            $queryParameters.add($optional_cost_id);
+            array_push($queryParameters, $optionalCostId);
         }
         else
         {
-            if(empty($cost_cat_id) == false){
+            if(empty($costCatId) == false){
                 $onStatement = " AND c.cost_cat_id = ? ";
-                $queryParameters.add($cost_cat_id);
+                array_push($queryParameters, $costCatId);
             }
-            if(empty($is_recoverable) == false){
+            if(empty($isRecoverable) == false){
                 $onStatement += " AND c.is_recoverable = ? ";
-                $queryParameters.add($is_recoverable);
+                array_push($queryParameters, $isRecoverable);
             }
-            if(empty($payment_status) == false){
-                if($payment_status == "due") {
+            if(empty($paymentStatus) == false){
+                if($paymentStatus == "due") {
                     $whereCondition = " c.amount > (t1.direct_pay_amounts + t2.iou_pay_amounts) ";                    
-                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
+                    $whereStatement += $this->getWhereOrAnd($whereCount) + $whereCondition;
                     $whereCount += 1;
                 }
-                else if($payment_status == "paid"){
+                else if($paymentStatus == "paid"){
                     $whereCondition = " c.amount = (t1.direct_pay_amounts + t2.iou_pay_amounts) ";
-                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
+                    $whereStatement += $this->getWhereOrAnd($whereCount) + $whereCondition;
                     $whereCount += 1;
                 }
             }
-            if(empty($from_date) == false){                
-                $whereStatement += getWhereOrAnd($whereCount) + " c.created_at >= ? ";
-                $queryParameters.add($from_date);
+            if(empty($fromDate) == false){                
+                $whereStatement += $this->getWhereOrAnd($whereCount) + " c.created_at >= ? ";
+                array_push($queryParameters, $fromDate);
                 $whereCount += 1;
-                if(empty($to_date) == false) {
+                if(empty($toDate) == false) {
                     $whereCondition = "c.created_at <= ?";                    
-                    $whereStatement += getWhereOrAnd($whereCount) + $whereCondition;
-                    $queryParameters.add($to_date);
+                    $whereStatement += $this->getWhereOrAnd($whereCount) + $whereCondition;
+                    array_push($queryParameters, $toDate);
                     $whereCount += 1;
                 }
             }
@@ -65,7 +65,7 @@ class CostReport {
                     CONCAT(u.first_name, ' ', u.last_name) created_by_name,
                     c.created_at
             FROM Cost_categories cc JOIN Costs c
-                    ON cc.id = c.cost_cat_id " + onStatement + 
+                    ON cc.id = c.cost_cat_id " + $onStatement + 
                     " LEFT JOIN
                     ( SELECT cnt.cost_id, 
                             SUM(et.transaction_amount) direct_pay_amounts
@@ -88,26 +88,26 @@ class CostReport {
         $result  = json_decode(json_encode($result), true);
         return $result;
     }
-    public function getCostPaymentsReport2($cost_cat_id = null, $payment_type = null, $is_recoverable = null, $from_date = null, $to_date = null) {        
+    public function getPaymentListWithCostRef($costCatId = null, $payment_type = null, $isRecoverable = null, $fromDate = null, $toDate = null) {        
         $queryParameters = [];
         $whereCount = 0;
         $whereStatement = "";
-        if(empty($cost_cat_id) == false){
+        if(empty($costCatId) == false){
             $whereStatement += getDynamicWhere($whereCount) + "t.cost_cat_id = ? ";
-            $queryParameters.add($cost_cat_id);
+            array_push($queryParameters, $costCatId);
             $whereCount += 1;
         }
-        if(empty($is_recoverable) == false){
+        if(empty($isRecoverable) == false){
             $whereStatement += getDynamicWhere($whereCount) + "t.is_recoverable = ? ";
-            $queryParameters.add($is_recoverable);
+            array_push($queryParameters, $isRecoverable);
             $whereCount += 1;
         }
-        if(empty($from_date) == false) {
-            $queryParameters.add($from_date);   
+        if(empty($fromDate) == false) {
+            array_push($queryParameters, $fromDate);   
             $whereStatement += getDynamicWhere($whereCount) + "t.created_at >= ?";
             $whereCount += 1;    
-            if(empty($to_date) == false) {
-                $queryParameters.add($to_date);
+            if(empty($toDate) == false) {
+                array_push($queryParameters, $toDate);
                 $whereStatement += getDynamicWhere($whereCount) + "t.created_at <= ?";
                 $whereCount += 1;
             }
@@ -156,17 +156,17 @@ class CostReport {
         $result  = json_decode(json_encode($result),true);
         return $result;
     }
-    public function getCostPaymentDetails($cost_id){
-        $json_object;
+    public function getCostPaymentDetails($costId){
+        $jsonObject;
         if( empty($session_data) == true) {
-            $session_data = getCostPaymentsReport1($optional_cost_id);
+            $session_data = getCostPaymentsReport1($optionalCostId);
         }
-        $json_object->session_data = $session_data;   
-        $json_object->iou_payment_list = getIOU_PaymentList($cost_id);
-        $json_object->direct_payment_list = getDirectPaymentList($cost_id);
-        return $json_object;
+        $jsonObject->sessionData = $session_data;   
+        $jsonObject->iouPaymentList = getIOU_PaymentList($costId);
+        $jsonObject->directPaymentList = getDirectPaymentList($costId);
+        return $jsonObject;
     }
-    public function getIOU_PaymentList($cost_id) {                
+    public function getIOU_PaymentList($costId) {                
         $query = "
             SELECT ( case
                         when 1 then (select b.id
@@ -176,21 +176,18 @@ class CostReport {
                                 )
                         else 0
                     end) budget_id,
-                    ic.id iou_cost_id, ic.paid, ic.spender_id,
-                    CONCAT(u1.first_name, ' ', u1.last_name) spender_name,
-                    u1.mobile spender_mobile, ic.created_by,
-                    CONCAT(u2.first_name, ' ', u2.last_name) creator_name,
-                    u2.mobile creator_mobile, ic.created_at, ic.cost_id
+                    ic.id iou_cost_id, ic.paid, ic.spender_id, CONCAT(u1.first_name, ' ', u1.last_name) spender_name, u1.mobile spender_mobile, ic.created_by,
+                    CONCAT(u2.first_name, ' ', u2.last_name) creator_name, u2.mobile creator_mobile, ic.created_at, ic.cost_id
             FROM IOU_costs ic JOIN Costs c
                     ON ic.cost_id = ? AND ic.cost_id = c.id
                 JOIN Users u1 JOIN Users u2
                     ON ic.spender_id = u1.id AND ic.created_by = u2.id 
             ORDER BY ic.created_at DESC";      
-        $result = DB::select($query, [$cost_id]);
+        $result = DB::select($query, [$costId]);
         $result  = json_decode(json_encode($result), true);
         return $result;
     }
-    public function getDirectPaymentList($cost_id) {
+    public function getDirectPaymentList($costId) {
         $onCodition = " cnt.cost_id = ? AND ";
         $query = "
             SELECT ( case
@@ -208,7 +205,7 @@ class CostReport {
                     ON " + $onCodition + " cnt.pay_erp_transaction_id = et.id AND et.from_id = ea.id
                 JOIN  Users u1 JOIN Users u2
                     ON et.to_id = u1.id AND et.created_by = u2.id ";
-        $result = DB::SELECT($query, [$cost_id]);
+        $result = DB::SELECT($query, [$costId]);
         $result  = json_decode(json_encode($result), true);
         return $result;
     }
