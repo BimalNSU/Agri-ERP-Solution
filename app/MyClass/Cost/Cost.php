@@ -136,7 +136,7 @@ class Cost {
         if(empty($fromDate) == false AND empty($toDate) == false){
             $result = DB::select($query, [$fromDate, $toDate, $from_date, $toDate] );
         }else{
-            $result = DB:select($query);
+            $result = DB::select($query);
         }
         return json_decode(json_encode($result), true);
     }
@@ -152,7 +152,7 @@ class Cost {
         $months = $result['budget_period_in_months'];
         $toDate = Carbon::parse($fromDate)->addMonths($months);     // toDate = fromDate + month
         $query = "
-        SELECT t2.*, CONCAT(u.first_name, ", ", u.last_name) created_by_name
+        SELECT t2.*, CONCAT(u.first_name, ' ', u.last_name) created_by_name
         FROM ( SELECT t1.*, SUM(ic.paid) iou_amount
                 FROM (SELECT id cost_id,  c.amount cost_amount, SUM(et.transaction_amount) transfer_amount, comments, created_by, created_at
                     FROM  ERP_transactions et JOIN Costs_n_transactions cnt RIGHT JOIN Costs c 
