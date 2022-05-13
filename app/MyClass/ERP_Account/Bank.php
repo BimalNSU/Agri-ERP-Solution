@@ -35,5 +35,10 @@ class Bank extends ERP_Account {
         $result = json_decode(json_encode($result), true);
         return $result;
     }
+    public function getPaymentBankId($bankName)
+    {
+        $bankId =1;
+        return $bankId;
+    }
 }
 ?>
