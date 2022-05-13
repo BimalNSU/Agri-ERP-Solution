@@ -10,7 +10,7 @@ class Cost {
     }
     public function createCost($costCatId, $amount, $billCopy = null, $comments = null, $isRecoverable = 0){
         $createdBy = 1;             //set default userId for test purpose
-        $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD");  // get current date with SQL date format
+        $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $placeHolder = [$costCatId, $amount, $billCopy, $comments, $isRecoverable, $createdBy, $createdAt];
         $query = "
             INSERT into Costs (cost_cat_id, amount, bill_copy, comments, is_recoverable, created_by, created_at)
@@ -93,12 +93,12 @@ class Cost {
         $optionalCondition1 = "WHERE";
         $optionalCondition2 = "WHERE";
         $count = 0;
-        if(empty($fromDate) == false and empty($toDate) == false){
+        if( !empty($fromDate) and !empty($toDate) ){
             $optionalCondition1 += " et.created_by >= ? AND et.created_by <= ?";
             $optionalCondition2 += "ic.created_by >= ? AND ic.created_by <= ?";
             $count = 1;
         }
-        if($onlyClearable == false){
+        if( !$onlyClearable ){
             if($count == 1){
                 $optionalCondition1 += "AND";
                 $optionalCondition2 += "AND";
@@ -112,29 +112,28 @@ class Cost {
             SELECT cc.id cost_cat_id , cc.cost_name,
                         IFNULL(temp1.total_transaction_amount, 0) total_transaction_amount,
                         IFNULL(temp2.total_iou_paid, 0) total_iou_paid
-            FROM (SELECT c.cost_cat_id, 
-                                        SUM(et.transaction_amount) total_transaction_amount
-                        FROM ERP_transactions et JOIN Costs_n_transactions cnt
-                                        ON et.id = cnt.pay_erp_transaction_id
-                                    JOIN Costs c
-                                        ON cnt.cost_id = c.id"
-                        + $optionalCondition1 +
-                        "GROUP BY c.cost_cat_id
-                        ) temp1
-                        RIGHT JOIN 
-                        Cost_categories cc
+            FROM (SELECT c.cost_cat_id, SUM(et.transaction_amount) total_transaction_amount
+                    FROM ERP_transactions et JOIN Costs_n_transactions cnt
+                            ON et.id = cnt.pay_erp_transaction_id
+                        JOIN Costs c
+                            ON cnt.cost_id = c.id"
+                    + $optionalCondition1 +
+                    "GROUP BY c.cost_cat_id
+                 ) temp1
+                    RIGHT JOIN 
+                    Cost_categories cc
                         ON temp1.cost_cat_id = cc.id
-                        LEFT JOIN 
-                        (SELECT c.cost_cat_id, SUM(ic.paid) total_iou_paid
-                        FROM IOU_Costs ic JOIN Costs c
-                                    ON ic.cost_id = c.id"
-                        + $optionalCondition2 +
-                        "GROUP BY c.cost_cat_id
-                        ) temp2
-                            ON temp2.cost_cat_id = cc.id";
+                    LEFT JOIN 
+                    (SELECT c.cost_cat_id, SUM(ic.paid) total_iou_paid
+                    FROM IOU_Costs ic JOIN Costs c
+                        ON ic.cost_id = c.id"
+                    + $optionalCondition2 +
+                    "GROUP BY c.cost_cat_id
+                    ) temp2
+                        ON temp2.cost_cat_id = cc.id";
         $result;
-        if(empty($fromDate) == false AND empty($toDate) == false){
-            $result = DB::select($query, [$fromDate, $toDate, $from_date, $toDate] );
+        if( !empty($fromDate) AND !empty($toDate) ){
+            $result = DB::select($query, [$fromDate, $toDate, $fromDate, $toDate] );
         }else{
             $result = DB::select($query);
         }
