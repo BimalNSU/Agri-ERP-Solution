@@ -9,7 +9,7 @@ class Cost {
 
     }
     public function createCost($costCatId, $amount, $billCopy = null, $comments = null, $isRecoverable = 0){
-        $createdBy = 1;             //set default userId for test purpose
+        $createdBy = Auth::user()->id;
         $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $placeHolder = [$costCatId, $amount, $billCopy, $comments, $isRecoverable, $createdBy, $createdAt];
         $query = "
