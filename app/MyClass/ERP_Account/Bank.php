@@ -37,8 +37,16 @@ class Bank extends ERP_Account {
     }
     public function getPaymentBankId($bankName)
     {
-        $bankId =1;
-        return $bankId;
+        $query = "
+            SELECT id
+            FROM ERP_accounts
+            WHERE name = ? and
+                id IN (SELECT erp_account_id
+                        FROM ERP_bank_details
+                        WHERE is_payment_receivable_account = 1)";
+        $result = DB::select($query);
+        $result = json_decode(json_encode($result), true);
+        return $result["id"];
     }
 }
 ?>
