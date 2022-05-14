@@ -2,7 +2,6 @@
 namespace App\MyClass\Transaction;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\MyClass\ERP_Account\CashCounter;
 use Auth;
 
 class Transaction {
