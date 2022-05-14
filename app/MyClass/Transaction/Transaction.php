@@ -21,12 +21,12 @@ class Transaction {
     }
     public function doTransaction($transactionData)
     {
-        $createBy = Auth::user()->id;
+        $createdBy = Auth::user()->id;
         $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $transactionTypeId = $this->getTransactionTypeID( $transactionData["transactionType"], $transactionData["transactionWay"] );
         $placeHolder = [
             $transactionTypeId, $transactionData["fromId"], $transactionData["toId"], $transactionData["transactionAmount"], $transactionData["transactionDate"],
-            $transactionData["slipType"], $transactionData["slip"], $createBy, $createdAt
+            $transactionData["slipType"], $transactionData["slip"], $createdBy, $createdAt
         ];
         $query = "
             INSERT INTO ERP_transactions (transaction_type_id, from_id, to_id, transaction_amount, transaction_date, slip_type, slip, created_by, created_at)
