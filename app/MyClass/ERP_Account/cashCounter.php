@@ -1,6 +1,8 @@
 <?php
 namespace App\MyClass\ERP_Account;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Auth;
 
 class CashCounter {
    function __constructor()
@@ -9,10 +11,12 @@ class CashCounter {
     }
     public createAccount($cashCounterName, $balance, $isActive)
     {
+        $createdBy = Auth::user()->id;
+        $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $query = " 
-            INSERT INTO ERP_accounts (name, balance, is_active)
+            INSERT INTO ERP_accounts (name, balance, is_active, created_by, created_at)
                 VALUES(?, ?, ?)";
-        $result = DB::insert($query, [$cashCounterName, $balance, $isActive]);
+        $result = DB::insert($query, [$cashCounterName, $balance, $isActive, $createdBy, $createdAt]);
     }                
     public function getCounterList()
     {
