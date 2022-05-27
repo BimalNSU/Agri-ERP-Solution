@@ -162,8 +162,8 @@ class CostReport {
             $session_data = getCostPaymentsReport1($optionalCostId);
         }
         $jsonObject->sessionData = $session_data;   
-        $jsonObject->iouPaymentList = getIOU_PaymentList($costId);
-        $jsonObject->directPaymentList = getDirectPaymentList($costId);
+        $jsonObject->iouPaymentList = $this->getIOU_PaymentList($costId);
+        $jsonObject->directPaymentList = $this->getDirectPaymentList($costId);
         return $jsonObject;
     }
     public function getIOU_PaymentList($costId) {                
