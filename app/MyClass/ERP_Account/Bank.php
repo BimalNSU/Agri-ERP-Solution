@@ -1,6 +1,8 @@
 <?php
 namespace App\MyClass\ERP_Account;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use Carbon\Carbon;
 
 class Bank extends ERP_Account {
     function __constructor()
@@ -9,8 +11,10 @@ class Bank extends ERP_Account {
     }
     function createAccount($bank_name, $branch_name, $account_no, $account_holder, $balance, $is_acitve)
     {
+        $createdBy = Auth::user()->id;
+        $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $is_payment_receivable_account = 0;
-        $erpAccountPlaceHolder = [$bank_name, $balance, $is_acitve, $created_by, $created_at];
+        $erpAccountPlaceHolder = [$bank_name, $balance, $is_acitve, $createdby, $created_at];
         $query = "
             INSERT into ERP_accounts (name, balance, is_active, created_by, created_at)
                 values( ?, ?, ?, ?, ?)";
