@@ -2,6 +2,7 @@
 namespace App\MyClass\Cost;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Auth;
 
 class Cost {
    function __constructor()
@@ -21,30 +22,29 @@ class Cost {
     public function addCost($costData){
         $costId = $this->createCost($costData["costCatId"], $costData["amount"], $costData["billCopy"], $costData["comments"]);
         $erpAccount = new ERP_Account();
-        $type = $erpAccount.getAccountType($costData["transactionFrom"]);
+        $type = $erpAccount->getAccountType($costData["transactionFrom"]);
         $payErpTransactionId;
-        $transactionData;
-        if($type == "Online") {            
-            //here transaction_from means bank_id
-            $transactionData->fromId = $costData["transactionFrom"];
-            // here transaction_to = 0 or any user_id; 0 means "System_id"
-            $transactionData->toId = $costData["transactionTo"];
-            $transactionData->onlineTransactionId = $costData["onlineTransactionId"];
-            $transactionData->transactionAmount = $costData["transactionAmount"];
-            $transactionData->transactionCharge = $costData["transactionCharge"];
-            $transactionData->transactionDate = $costData["transactionDate"];
-            $transactionData->slip = $costData["slip"];
+        if($type == "Online") {
+            $transactionData = array(
+                "fromId" = $costData["transactionFrom"],    //here transactionFrom means bank_id
+                "toId" => $costData["transactionTo"],    //here transaction_to = 0 or any user_id; 0 means "System_id"
+                "onlineTransactionId" => $costData["onlineTransactionId"],
+                "transactionAmount" => $costData["transactionAmount"],
+                "transactionCharge" => $costData["transactionCharge"],
+                "transactionDate" => $costData["transactionDate"],
+                "slip" => $costData["slip"]
+            );
             $onlineTransaction = new OnlineTransaction();
-            $payErpTransactionId = $onlineTransaction.pay($transactionData);
+            $payErpTransactionId = $onlineTransaction->pay($transactionData);
         }
-        else if($type == "Offline") {            
-            //here transaction_from means cash_counter_id
-            $transactionData->fromId = $costData["transactionFrom"];
-            //here transaction_to means employee_id
-            $transactionData->toId = $costData["transactionTo"];
-            $transactionData->transaction_amount = $costData["transactionAmount"];
+        else if($type == "Offline") {
+            $transactionData = array(
+                "fromId" = $costData["transactionFrom"],    //here transaction_from means cash_counter_id
+                "toId" => $costData["transactionTo"],       //here transaction_to means employee_id
+                "transactionAmount" => $costData["transactionAmount"]
+            );
             $offlineTransaction = new OfflineTransaction();
-            $payErpTransactionId = $offlineTransaction.pay($transactionData);
+            $payErpTransactionId = $offlineTransaction->pay($transactionData);
         }
         else 
             return "Invalid request";
@@ -83,11 +83,11 @@ class Cost {
     public function getCurrentCostlist(){
         $onlyClearable = false;
         $budget = new Budget();
-        $result = $budget.getCurrentBudgetDateInfo();
+        $result = $budget->getCurrentBudgetDateInfo();
         $fromDate = $result['from_date'];
         $months = $result['budget_period_in_months'];
         $toDate = Carbon::parse($fromDate)->addMonths($months);     // toDate = fromDate + month
-        return getCostlistSummary($onlyClearable, $fromDate, $toDate);
+        return $this->getCostlistSummary($onlyClearable, $fromDate, $toDate);
     }
     public function getCostlistSummary($onlyClearable, $fromDate="", $toDate=""){
         $optionalCondition1 = "WHERE";
@@ -143,9 +143,9 @@ class Cost {
         $budget = new Budget();
         $result;
         if($budgetId){
-            $result = $budget.getBudgetDateInfo($budgetId); // return specific budget info
+            $result = $budget->getBudgetDateInfo($budgetId); // return specific budget info
         }else {
-            $result = $budget.getCurrentBudgetDateInfo();  // return current budget info
+            $result = $budget->getCurrentBudgetDateInfo();  // return current budget info
         }
         $fromDate = $result['from_date'];
         $months = $result['budget_period_in_months'];
