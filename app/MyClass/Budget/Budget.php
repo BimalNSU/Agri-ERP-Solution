@@ -1,7 +1,8 @@
 <?php
 namespace App\MyClass;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
+use Auth;
 
 class Budget {
    function __constructor()
@@ -9,12 +10,13 @@ class Budget {
 
     }
     public function addBudget($data)
-    {   //convert createdAt date-format into sql format(i.e. YYYY-MM-DD )
-        $createdAt = Carbon::parse($data["createdAt"])->format("YYYY-MM-DD");
+    {   $createdBy = Auth::user()->id;
+        //get current datetime in sql format(i.e. YYYY-MM-DD HH:MI:SS )
+        $createdAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $query = "
             INSERT INTO Budgets (budget_on_date, budget_period_in_months, created_by, created_at)
                 values(?, ?, ?, ?)";
-        DB::insert($query, [$data["budgetOnDate"], $data["budgetPeriodInMonths"], $data["createdBy"], $createdAt ]);
+        DB::insert($query, [$data["budgetOnDate"], $data["budgetPeriodInMonths"], $createdBy, $createdAt ]);
         $newBudgetId = DB::getPdo()->lastInsertId();    // return newly created budgetId
         foreach($data["budgets"] as $value){
             $query2 = "
@@ -24,14 +26,18 @@ class Budget {
         }
     }
     public function updateCurrentBudget()
-    {   //convert createdAt date-format into sql format(i.e. YYYY-MM-DD )
-        $createdAt = Carbon::parse($data["createdAt"])->format("YYYY-MM-DD");
+    {   
+        $updatedBy = Auth::user()->id;
+        //get current datetime in sql format(i.e. YYYY-MM-DD HH:MI:SS )
+        $updatedAt = Carbon::now('Asia/Dhaka').format("YYYY-MM-DD HH:MI:SS");  // get current date with SQL date format
         $query = "
             UPDATE Budgets 
                 set budget_on_date = ?,
-                    budget_period_in_months = ?
+                    budget_period_in_months = ?,
+                    updated_by = ?,
+                    update_at = ?
             WHERE id = ?";
-        DB::update($query, [ $data["budgetOnDate"], $data["budgetPeriodInMonths"], $data["budgetId"] ]);
+        DB::update($query, [ $data["budgetOnDate"], $data["budgetPeriodInMonths"], $updatedBy, $updatedAt, $data["budgetId"] ]);
 
         $query2 = "
             DELETE
