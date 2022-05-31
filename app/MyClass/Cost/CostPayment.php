@@ -16,6 +16,8 @@ class CostReport {
         }
         return '';
     }
+
+    // it's returned value will be used in 'Cost report-1' page
     public function getCostListWithPaidAmount($costCatId = null, $isRecoverable = null, $paymentStatus = null, $fromDate = null, $toDate = null, $optionalCostId = null){
         $queryParameters = [];
         $onStatement = "";
@@ -58,7 +60,7 @@ class CostReport {
                     $whereCount += 1;
                 }
             }
-        }            
+        }     
         $query = "
             SELECT c.id cost_id, cc.cost_name, c.amount cost_amount, t1.direct_pay_amounts,
                     t2.iou_pay_amounts, c.bill_copy, c.comments, c.created_by,
@@ -83,12 +85,14 @@ class CostReport {
                     JOIN Users u
                         ON c.created_by = u.id "
             + $whereStatement ;
-                
+          
         $result = DB::select($query, $queryParameters);
         $result  = json_decode(json_encode($result), true);
         return $result;
     }
-    public function getPaymentListWithCostRef($costCatId = null, $payment_type = null, $isRecoverable = null, $fromDate = null, $toDate = null) {        
+
+    // it's returned value will be used in 'Cost report-2' page
+    public function getPaymentListWithCostRef($costCatId = null, $payment_type = null, $isRecoverable = null, $fromDate = null, $toDate = null) {
         $queryParameters = [];
         $whereCount = 0;
         $whereStatement = "";
@@ -157,16 +161,16 @@ class CostReport {
         return $result;
     }
     public function getCostPaymentDetails($costId){
-        $jsonObject;
-        if( empty($session_data) == true) {
-            $session_data = getCostPaymentsReport1($optionalCostId);
-        }
-        $jsonObject->sessionData = $session_data;   
-        $jsonObject->iouPaymentList = $this->getIOU_PaymentList($costId);
-        $jsonObject->directPaymentList = $this->getDirectPaymentList($costId);
-        return $jsonObject;
+        $cost = new Cost(); 
+        $result = array (
+            "costInfo" => $cost->getCostInfo($costId),
+            "iouPaymentList" => $this->getIOU_PaymentList($costId),
+            "directPaymentList" => $this->getDirectPaymentList($costId)
+        );
+        return $result;
     }
-    public function getIOU_PaymentList($costId) {                
+    public function getIOU_PaymentList($costId) 
+    {                
         $query = "
             SELECT ( case
                         when 1 then (select b.id
@@ -184,10 +188,11 @@ class CostReport {
                     ON ic.spender_id = u1.id AND ic.created_by = u2.id 
             ORDER BY ic.created_at DESC";      
         $result = DB::select($query, [$costId]);
-        $result  = json_decode(json_encode($result), true);
+        $result = json_decode(json_encode($result), true);
         return $result;
     }
-    public function getDirectPaymentList($costId) {
+    public function getDirectPaymentList($costId) 
+    {
         $onCodition = " cnt.cost_id = ? AND ";
         $query = "
             SELECT ( case
